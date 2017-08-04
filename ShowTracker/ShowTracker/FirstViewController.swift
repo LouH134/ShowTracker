@@ -12,7 +12,17 @@ class FirstViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        self.navigationController?.navigationBar.barTintColor = UIColor.purple
+        self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.yellow]
+        
+        self.tabBarController?.tabBar.barTintColor = UIColor.purple
+        self.tabBarController?.tabBar.isTranslucent = false
+        self.tabBarController?.tabBar.tintColor = UIColor.yellow
+        
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
