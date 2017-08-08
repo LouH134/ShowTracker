@@ -6,12 +6,23 @@
 //  Copyright © 2017 Louis Harris. All rights reserved.
 //
 
+
+///////////////////////////////////////////////////////////////////////////////////
+//                              TO DO                                            //
+//1. addshow textfield populates possibleshows tableview, saves show to coredata//
+//2. delete button deletes show in tableview when highlighted                   //
+//3. follow show button sends show from possibleshow tableview to followed show//
+// tableview in the firstviewcontroller and saves to coredata                   //
+/////////////////////////////////////////////////////////////////////////////////
+
 import UIKit
 
-class SecondViewController: UIViewController {
+class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var addShowButton: UIButton!
     @IBOutlet weak var deleteShowButton: UIButton!
+    @IBOutlet weak var addShowTextField: UITextField!
+    @IBOutlet weak var possibleShowsTableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,11 +40,14 @@ class SecondViewController: UIViewController {
         deleteShowButton.layer.borderWidth = 2.5
         deleteShowButton.layer.borderColor = UIColor.purple.cgColor
         deleteShowButton.contentEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
+        addShowTextField.layer.cornerRadius = 5
+        addShowTextField.layer.borderWidth = 2.5
+        addShowTextField.layer.borderColor = UIColor.purple.cgColor
+        
+        self.possibleShowsTableView.delegate = self
+        self.possibleShowsTableView.dataSource = self
+        
     }
 
     @IBAction func addShow(_ sender: Any) {
@@ -41,5 +55,21 @@ class SecondViewController: UIViewController {
 
     @IBAction func deleteShow(_ sender: Any) {
     }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 10
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = possibleShowsTableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        
+        return cell
+    }
+    
+    
 }
 

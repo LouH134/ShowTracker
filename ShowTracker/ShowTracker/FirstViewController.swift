@@ -10,6 +10,11 @@ import UIKit
 
 class FirstViewController: UIViewController {
 
+
+    @IBOutlet weak var detailButton: UIButton!
+    @IBOutlet weak var deleteButton: UIButton!
+    @IBOutlet weak var followedShowsTableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -21,14 +26,23 @@ class FirstViewController: UIViewController {
         self.tabBarController?.tabBar.isTranslucent = false
         self.tabBarController?.tabBar.tintColor = UIColor.yellow
         
+        deleteButton.layer.cornerRadius = 5
+        deleteButton.layer.borderWidth = 2.5
+        deleteButton.layer.borderColor = UIColor.purple.cgColor
+        deleteButton.contentEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
         
-        
+        detailButton.layer.cornerRadius = 5
+        detailButton.layer.borderWidth = 2.5
+        detailButton.layer.borderColor = UIColor.purple.cgColor
+        detailButton.contentEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    @IBAction func deleteShow(_ sender: Any) {
     }
+    
+    @IBAction func showDetails(_ sender: Any) {
+    }
+  
 
 
 }
