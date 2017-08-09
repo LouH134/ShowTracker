@@ -6,10 +6,19 @@
 //  Copyright © 2017 Louis Harris. All rights reserved.
 //
 
+///////////////////////////////////////////////////////////////////////////
+//                          TO DO                                        //
+//1. Label is title of show                                              //
+//2. Once info is entered save button saves to core data                //
+//3. Button highlight is changed when pressed                           //
+//4. Create Array to rank shows                                         //
+/////////////////////////////////////////////////////////////////////////
+
 import UIKit
 
 class EditShowViewController: UIViewController, UITextViewDelegate{
     
+    @IBOutlet weak var rankTxtField: UITextField!
     @IBOutlet weak var currentSeasonTxtField: UITextField!
     @IBOutlet weak var currentEpisodeTxtField: UITextField!
     @IBOutlet weak var summaryTextView: UITextView!
@@ -48,6 +57,10 @@ class EditShowViewController: UIViewController, UITextViewDelegate{
         totalSeasonTxtField.layer.cornerRadius = 5
         totalSeasonTxtField.layer.borderWidth = 2.5
         totalSeasonTxtField.layer.borderColor = UIColor.purple.cgColor
+        
+        rankTxtField.layer.cornerRadius = 5
+        rankTxtField.layer.borderWidth = 2.5
+        rankTxtField.layer.borderColor = UIColor.purple.cgColor
         
         summaryTextView.delegate = self
         

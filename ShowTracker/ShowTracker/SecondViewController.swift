@@ -12,7 +12,8 @@
 //1. addshow textfield populates possibleshows tableview, saves show to coredata//
 //2. delete button deletes show in tableview when highlighted                   //
 //3. follow show button sends show from possibleshow tableview to followed show//
-// tableview in the firstviewcontroller and saves to coredata                   //
+// tableview in the firstviewcontroller and saves to coredata                  //
+//4. Buttons are highlighted when pressed                                      //
 /////////////////////////////////////////////////////////////////////////////////
 
 import UIKit

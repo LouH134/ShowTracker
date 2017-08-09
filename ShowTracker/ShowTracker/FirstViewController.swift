@@ -6,6 +6,15 @@
 //  Copyright © 2017 Louis Harris. All rights reserved.
 //
 
+//////////////////////////////////////////////////////////////////////////////////////
+//                                  TO DO                                           //
+//1. Populate followingTableView from possibleshowsVC                                //
+//2. Can't acess detailVC and EditVC unless show is selected from followingTableView//
+//3. Delete a show button deletes a show                                            //
+//4. Buttons are highlighted when pressed                                           //
+//5. Create array to get data from editVC array use array to display shows in order//
+////////////////////////////////////////////////////////////////////////////////////
+
 import UIKit
 
 class FirstViewController: UIViewController {
