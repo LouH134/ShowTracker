@@ -24,6 +24,9 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var deleteShowButton: UIButton!
     @IBOutlet weak var addShowTextField: UITextField!
     @IBOutlet weak var possibleShowsTableView: UITableView!
+    var keyboardHeight: CGRect!
+    var possibleShows = [String]()
+    var addShowString: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +51,37 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         self.possibleShowsTableView.delegate = self
         self.possibleShowsTableView.dataSource = self
+        
+        self.keyboardHeight = self.view.frame
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+    
+    func keyboardWillShow(notification:NSNotification)
+    {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue{
+            self.view.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: keyboardHeight.height - keyboardSize.height - 1)
+        }
+    }
+    
+    func keyboardWillHide(notification:NSNotification)
+    {
+        if ((notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue) != nil{
+            self.view.frame = keyboardHeight
+        }
+    }
+    
+    func dismissKeyboard()
+    {
+        self.view.endEditing(true)
+    }
+    
+    
+    @IBAction func addShowTxtFieldPressed(_ sender: Any) {
         
     }
 
