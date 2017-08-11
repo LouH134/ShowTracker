@@ -31,6 +31,8 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.possibleShowsTableView.reloadData()
+        
         self.navigationController?.navigationBar.barTintColor = UIColor.purple
         self.navigationController?.tabBarController?.tabBar.isTranslucent = false
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.yellow]
@@ -64,7 +66,8 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func keyboardWillShow(notification:NSNotification)
     {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue{
-            self.view.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: keyboardHeight.height - keyboardSize.height - 1)
+            self.view.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: keyboardHeight.height - keyboardSize.height)
+
         }
     }
     
@@ -72,6 +75,8 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
     {
         if ((notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue) != nil{
             self.view.frame = keyboardHeight
+            self.view.frame.origin.y -= self.navigationController!.navigationBar.frame.height
+            
         }
     }
     
@@ -80,11 +85,6 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.view.endEditing(true)
     }
     
-    
-    @IBAction func addShowTxtFieldPressed(_ sender: Any) {
-        
-    }
-
     @IBAction func addShow(_ sender: Any) {
     }
 
@@ -96,15 +96,39 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return possibleShows.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = possibleShowsTableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        
+        cell.textLabel?.text = possibleShows[indexPath.row]
         
         return cell
     }
     
     
 }
+
+extension SecondViewController: UITextFieldDelegate {
+    
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        if addShowTextField.hasText{
+            addShowString = addShowTextField.text
+            possibleShows.append(addShowString!)
+            addShowTextField.text = ""
+        }
+        
+        self.possibleShowsTableView.reloadData()
+        self.view.endEditing(true)
+        return true
+    }
+    
+
+    
+}
+
+
 
