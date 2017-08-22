@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CustomAlertViewController" customModule="ShowTracker" customModuleProvider="target">
+            <connections>
+                <outlet property="cancelButton" destination="baY-L8-Twv" id="530-Wa-4pu"/>
+                <outlet property="customAlertView" destination="1XO-ex-O1F" id="OrZ-5K-1We"/>
+                <outlet property="inputTextField" destination="XSL-um-971" id="LyB-0m-BnW"/>
+                <outlet property="saveButton" destination="WqX-iV-Vbg" id="0FQ-My-rI6"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1XO-ex-O1F">
+                    <rect key="frame" x="31" y="249.5" width="312.5" height="167"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Show" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OMc-pd-XUJ">
+                            <rect key="frame" x="0.0" y="0.0" width="312.5" height="30"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                            <color key="textColor" red="1" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter a show to be considered" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pJw-St-eSd">
+                            <rect key="frame" x="0.0" y="38" width="312.5" height="18"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="textColor" red="1" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WqX-iV-Vbg">
+                            <rect key="frame" x="0.0" y="125.5" width="156" height="41.5"/>
+                            <state key="normal" title="Save">
+                                <color key="titleColor" red="1" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="save:" destination="-1" eventType="touchUpInside" id="Irq-P4-Pdf"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="baY-L8-Twv">
+                            <rect key="frame" x="156" y="125.5" width="156" height="41.5"/>
+                            <state key="normal" title="Cancel">
+                                <color key="titleColor" red="1" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="cancel:" destination="-1" eventType="touchUpInside" id="e2p-wn-PHr"/>
+                            </connections>
+                        </button>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Name..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XSL-um-971">
+                            <rect key="frame" x="0.0" y="68.5" width="312" height="30"/>
+                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="textColor" red="1" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="color" keyPath="_placeholderLabel.textColor">
+                                    <color key="value" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </textField>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="baY-L8-Twv" firstAttribute="height" secondItem="1XO-ex-O1F" secondAttribute="height" multiplier="1/4" id="4jd-d1-YmR"/>
+                        <constraint firstAttribute="bottom" secondItem="WqX-iV-Vbg" secondAttribute="bottom" id="5UD-a5-UCM"/>
+                        <constraint firstAttribute="trailing" secondItem="OMc-pd-XUJ" secondAttribute="trailing" id="6xY-mB-DpP"/>
+                        <constraint firstItem="OMc-pd-XUJ" firstAttribute="top" secondItem="1XO-ex-O1F" secondAttribute="top" id="8qm-dj-fem"/>
+                        <constraint firstAttribute="trailing" secondItem="XSL-um-971" secondAttribute="trailing" id="CMC-ad-Uto"/>
+                        <constraint firstItem="OMc-pd-XUJ" firstAttribute="leading" secondItem="1XO-ex-O1F" secondAttribute="leading" id="FTg-Ls-dnp"/>
+                        <constraint firstAttribute="trailing" secondItem="pJw-St-eSd" secondAttribute="trailing" id="VaM-1T-uS8"/>
+                        <constraint firstItem="baY-L8-Twv" firstAttribute="width" secondItem="1XO-ex-O1F" secondAttribute="width" multiplier="0.5" id="YNY-RX-2lZ"/>
+                        <constraint firstItem="pJw-St-eSd" firstAttribute="leading" secondItem="1XO-ex-O1F" secondAttribute="leading" id="b6g-nU-9em"/>
+                        <constraint firstAttribute="trailing" secondItem="baY-L8-Twv" secondAttribute="trailing" id="fen-An-hr4"/>
+                        <constraint firstItem="WqX-iV-Vbg" firstAttribute="width" secondItem="1XO-ex-O1F" secondAttribute="width" multiplier="0.5" id="g6O-u2-4mv"/>
+                        <constraint firstItem="WqX-iV-Vbg" firstAttribute="leading" secondItem="1XO-ex-O1F" secondAttribute="leading" id="iEB-lC-F4u"/>
+                        <constraint firstItem="WqX-iV-Vbg" firstAttribute="height" secondItem="1XO-ex-O1F" secondAttribute="height" multiplier="1/4" id="lK2-BQ-TxV"/>
+                        <constraint firstItem="XSL-um-971" firstAttribute="centerY" secondItem="1XO-ex-O1F" secondAttribute="centerY" id="pUG-yW-86j"/>
+                        <constraint firstAttribute="bottom" secondItem="baY-L8-Twv" secondAttribute="bottom" id="piU-Lz-oH6"/>
+                        <constraint firstItem="pJw-St-eSd" firstAttribute="centerY" secondItem="1XO-ex-O1F" secondAttribute="centerY" constant="-36.5" id="w2b-Dz-eZ5"/>
+                        <constraint firstItem="XSL-um-971" firstAttribute="leading" secondItem="1XO-ex-O1F" secondAttribute="leading" id="wAl-ff-OHR"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="1XO-ex-O1F" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="1/4" id="0VS-a2-xoM"/>
+                <constraint firstItem="1XO-ex-O1F" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="XR1-zv-qw8"/>
+                <constraint firstItem="1XO-ex-O1F" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="5/6" id="bcP-si-HaN"/>
+                <constraint firstItem="1XO-ex-O1F" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="kmD-6B-fq4"/>
+            </constraints>
+            <point key="canvasLocation" x="32.5" y="92.5"/>
+        </view>
+    </objects>
+</document>

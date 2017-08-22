@@ -557,31 +557,26 @@
                                             <action selector="deleteShow:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="DzG-1R-1Hr"/>
                                         </connections>
                                     </button>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter a Possible Show to Consider..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KX2-di-3G1">
-                                        <rect key="frame" x="0.0" y="84.333333333333371" width="414" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LCT-Td-2nF">
+                                        <rect key="frame" x="8" y="86" width="398" height="30"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                        <color key="textColor" red="1" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" returnKeyType="send"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="_placeholderLabel.textColor">
-                                                <color key="value" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
+                                        <state key="normal" title="Add Possible Show">
+                                            <color key="titleColor" red="1" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
                                         <connections>
-                                            <outlet property="delegate" destination="8rJ-Kc-sve" id="XnH-1o-9so"/>
+                                            <action selector="addPossibleShow:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="oFG-sJ-vEc"/>
                                         </connections>
-                                    </textField>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="3Au-VY-Ge9" firstAttribute="trailing" secondItem="qUM-4N-ikK" secondAttribute="trailingMargin" id="Btk-ZU-wTq"/>
                                     <constraint firstAttribute="width" secondItem="qUM-4N-ikK" secondAttribute="height" multiplier="10:3" id="LNK-gW-xrl"/>
-                                    <constraint firstAttribute="bottom" secondItem="KX2-di-3G1" secondAttribute="bottom" constant="10" id="Now-j6-0qR"/>
-                                    <constraint firstItem="KX2-di-3G1" firstAttribute="leading" secondItem="qUM-4N-ikK" secondAttribute="leading" id="Oql-Rm-M6A"/>
-                                    <constraint firstAttribute="trailing" secondItem="KX2-di-3G1" secondAttribute="trailing" id="Sn8-Ja-ifk"/>
+                                    <constraint firstItem="LCT-Td-2nF" firstAttribute="leading" secondItem="qUM-4N-ikK" secondAttribute="leading" constant="8" id="MYt-hV-6Vm"/>
                                     <constraint firstItem="2gL-L5-oUP" firstAttribute="leading" secondItem="qUM-4N-ikK" secondAttribute="leadingMargin" id="Sri-ON-R5J"/>
                                     <constraint firstItem="3Au-VY-Ge9" firstAttribute="top" secondItem="qUM-4N-ikK" secondAttribute="top" constant="8" id="Y8D-wc-UIx"/>
+                                    <constraint firstAttribute="bottom" secondItem="LCT-Td-2nF" secondAttribute="bottom" constant="8" id="Y9y-Kp-fUB"/>
+                                    <constraint firstAttribute="trailing" secondItem="LCT-Td-2nF" secondAttribute="trailing" constant="8" id="cYp-qy-dsE"/>
                                     <constraint firstItem="2gL-L5-oUP" firstAttribute="top" secondItem="qUM-4N-ikK" secondAttribute="top" constant="8" id="gO1-zw-liS"/>
                                 </constraints>
                             </view>
@@ -606,8 +601,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="addPossibleShowButton" destination="LCT-Td-2nF" id="mII-wA-lKR"/>
                         <outlet property="addShowButton" destination="2gL-L5-oUP" id="Ohr-fx-SDl"/>
-                        <outlet property="addShowTextField" destination="KX2-di-3G1" id="dZ8-pL-H6J"/>
                         <outlet property="deleteShowButton" destination="3Au-VY-Ge9" id="zo0-uO-chX"/>
                         <outlet property="possibleShowsTableView" destination="IWV-mW-vgJ" id="ZZx-ke-F6y"/>
                     </connections>

@@ -9,23 +9,23 @@
 
 ///////////////////////////////////////////////////////////////////////////////////
 //                              TO DO                                            //
-//1. addshow textfield populates possibleshows tableview, saves show to coredata//
-//2. delete button deletes show in tableview when highlighted                   //
-//3. follow show button sends show from possibleshow tableview to followed show//
+//1. delete button deletes show in tableview when highlighted                   //
+//2. follow show button sends show from possibleshow tableview to followed show//
 // tableview in the firstviewcontroller and saves to coredata                  //
-//4. Buttons are highlighted when pressed                                      //
+//3. Buttons are highlighted when pressed                                      //
 /////////////////////////////////////////////////////////////////////////////////
 
 import UIKit
+import CoreData
 
 class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var addShowButton: UIButton!
     @IBOutlet weak var deleteShowButton: UIButton!
-    @IBOutlet weak var addShowTextField: UITextField!
     @IBOutlet weak var possibleShowsTableView: UITableView!
+    @IBOutlet weak var addPossibleShowButton: UIButton!
     var keyboardHeight: CGRect!
-    var possibleShows = [String]()
+    var possibleShows: [NSManagedObject] = []
     var addShowString: String?
     
     override func viewDidLoad() {
@@ -33,62 +33,86 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         self.possibleShowsTableView.reloadData()
         
+        //UI for Navbar
         self.navigationController?.navigationBar.barTintColor = UIColor.purple
         self.navigationController?.tabBarController?.tabBar.isTranslucent = false
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.yellow]
         
+        //UI for buttons
         addShowButton.layer.cornerRadius = 5
         addShowButton.layer.borderWidth = 2.5
         addShowButton.layer.borderColor = UIColor.purple.cgColor
         addShowButton.contentEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
-        
+
         deleteShowButton.layer.cornerRadius = 5
         deleteShowButton.layer.borderWidth = 2.5
         deleteShowButton.layer.borderColor = UIColor.purple.cgColor
         deleteShowButton.contentEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
         
-        addShowTextField.layer.cornerRadius = 5
-        addShowTextField.layer.borderWidth = 2.5
-        addShowTextField.layer.borderColor = UIColor.purple.cgColor
+        addPossibleShowButton.layer.cornerRadius = 5
+        addPossibleShowButton.layer.borderWidth = 2.5
+        addPossibleShowButton.layer.borderColor = UIColor.purple.cgColor
+        addPossibleShowButton.contentEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
         
+        //Setting up tableview
         self.possibleShowsTableView.delegate = self
         self.possibleShowsTableView.dataSource = self
-        
-        self.keyboardHeight = self.view.frame
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        
-        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        view.addGestureRecognizer(tap)
     }
     
-    func keyboardWillShow(notification:NSNotification)
-    {
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue{
-            self.view.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: keyboardHeight.height - keyboardSize.height)
-
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        //look at core data for saved shows
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else{
+            return
         }
-    }
-    
-    func keyboardWillHide(notification:NSNotification)
-    {
-        if ((notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue) != nil{
-            self.view.frame = keyboardHeight
-            self.view.frame.origin.y -= self.navigationController!.navigationBar.frame.height
-            
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "PossibleShow")
+        
+        do{
+            possibleShows = try managedContext.fetch(fetchRequest)
+        }catch let error as NSError{
+            print("Could not fetch! \(error), \(error.userInfo)")
         }
-    }
-    
-    func dismissKeyboard()
-    {
-        self.view.endEditing(true)
     }
     
     @IBAction func addShow(_ sender: Any) {
     }
 
     @IBAction func deleteShow(_ sender: Any) {
+    }
+    
+    @IBAction func addPossibleShow(_ sender: Any) {
+
+        let customAlert = CustomAlertViewController()
+        customAlert.secondVC = self
+        customAlert.modalPresentationStyle = .overCurrentContext
+        customAlert.modalTransitionStyle = .crossDissolve
+        present(customAlert, animated: true)
+        
+        self.tabBarController?.tabBar.isUserInteractionEnabled = false
+    }
+    
+    func save(name:String)
+    {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else{
+            return
+        }
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let entity = NSEntityDescription.entity(forEntityName:"PossibleShow", in: managedContext)
+        let possibleShow = NSManagedObject(entity: entity!, insertInto: managedContext)
+        
+        possibleShow.setValue(name, forKey: "showName")
+        
+        do{
+            try managedContext.save()
+            possibleShows.append(possibleShow)
+            possibleShowsTableView.reloadData()
+        }catch let error as NSError{
+            print("Could not Save! \(error), \(error.userInfo)")
+        }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -102,31 +126,13 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = possibleShowsTableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         
-        cell.textLabel?.text = possibleShows[indexPath.row]
+        let possibleShow = possibleShows[indexPath.row]
+        
+        cell.textLabel?.text = possibleShow.value(forKey: "showName") as? String
         
         return cell
     }
     
-    
-}
-
-extension SecondViewController: UITextFieldDelegate {
-    
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        
-        if addShowTextField.hasText{
-            addShowString = addShowTextField.text
-            possibleShows.append(addShowString!)
-            addShowTextField.text = ""
-        }
-        
-        self.possibleShowsTableView.reloadData()
-        self.view.endEditing(true)
-        return true
-    }
-    
-
     
 }
 
