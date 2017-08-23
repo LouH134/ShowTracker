@@ -9,10 +9,10 @@
 
 ///////////////////////////////////////////////////////////////////////////////////
 //                              TO DO                                            //
-//1. delete button deletes show in tableview when highlighted                   //
-//2. follow show button sends show from possibleshow tableview to followed show//
-// tableview in the firstviewcontroller and saves to coredata                  //
-//3. Buttons are highlighted when pressed                                      //
+//1.delete button deletes show in tableview when highlighted and in coredata    //
+//2. follow show button sends show from possibleshow tableview to followed show //
+//tableview in firstVC                                                          //
+//3. change UI of tableview                                                     //
 /////////////////////////////////////////////////////////////////////////////////
 
 import UIKit
@@ -24,19 +24,23 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var deleteShowButton: UIButton!
     @IBOutlet weak var possibleShowsTableView: UITableView!
     @IBOutlet weak var addPossibleShowButton: UIButton!
-    var keyboardHeight: CGRect!
     var possibleShows: [NSManagedObject] = []
     var addShowString: String?
+    @IBOutlet weak var editBarButton: UIBarButtonItem!
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        possibleShowsTableView.allowsMultipleSelection = false
         self.possibleShowsTableView.reloadData()
         
         //UI for Navbar
         self.navigationController?.navigationBar.barTintColor = UIColor.purple
         self.navigationController?.tabBarController?.tabBar.isTranslucent = false
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.yellow]
+        
         
         //UI for buttons
         addShowButton.layer.cornerRadius = 5
@@ -54,10 +58,18 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
         addPossibleShowButton.layer.borderColor = UIColor.purple.cgColor
         addPossibleShowButton.contentEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
         
+        //Disable buttons when nothing is selected
+        self.navigationItem.rightBarButtonItem?.tintColor = .gray
+        self.navigationItem.rightBarButtonItem?.isEnabled = false
+        addShowButton.isEnabled = false
+        deleteShowButton.isEnabled = false
+        
+        
         //Setting up tableview
         self.possibleShowsTableView.delegate = self
         self.possibleShowsTableView.dataSource = self
     }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -68,7 +80,7 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         
         let managedContext = appDelegate.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "PossibleShow")
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Show")
         
         do{
             possibleShows = try managedContext.fetch(fetchRequest)
@@ -81,10 +93,14 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
 
     @IBAction func deleteShow(_ sender: Any) {
+        let customAlert = CustomDeleteAlertViewController()
+        customAlert.secondVC = self
+        customAlert.modalPresentationStyle = .overCurrentContext
+        customAlert.modalTransitionStyle = .crossDissolve
+        present(customAlert, animated: true)
     }
     
     @IBAction func addPossibleShow(_ sender: Any) {
-
         let customAlert = CustomAlertViewController()
         customAlert.secondVC = self
         customAlert.modalPresentationStyle = .overCurrentContext
@@ -101,7 +117,7 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         
         let managedContext = appDelegate.persistentContainer.viewContext
-        let entity = NSEntityDescription.entity(forEntityName:"PossibleShow", in: managedContext)
+        let entity = NSEntityDescription.entity(forEntityName:"Show", in: managedContext)
         let possibleShow = NSManagedObject(entity: entity!, insertInto: managedContext)
         
         possibleShow.setValue(name, forKey: "showName")
@@ -113,6 +129,22 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }catch let error as NSError{
             print("Could not Save! \(error), \(error.userInfo)")
         }
+    }
+    
+    func deletePossibleShow()
+    {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else{
+            return
+        }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Show")
+        
+        possibleShows = try! managedContext.fetch(fetchRequest)
+        
+        for show in possibleShows{
+            managedContext.delete(show)
+        }
+        
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -132,7 +164,39 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         return cell
     }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if tableView.indexPathForSelectedRow != nil {
+            self.navigationItem.rightBarButtonItem?.tintColor = .yellow
+            self.navigationItem.rightBarButtonItem?.isEnabled = true
+            
+            addShowButton.isEnabled = true
+            addShowButton.setTitleColor(.yellow, for: .normal)
+            
+            deleteShowButton.isEnabled = true
+            deleteShowButton.setTitleColor(.yellow, for: .normal)
+        } else {
+            self.navigationItem.rightBarButtonItem?.tintColor = .gray
+            self.navigationItem.rightBarButtonItem?.isEnabled = false
+        
+            addShowButton.isEnabled = false
+            addShowButton.tintColor = .gray
+            
+            deleteShowButton.isEnabled = false
+            deleteShowButton.tintColor = .gray
+        }
+        
+        
+    }
     
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+    
+        if tableView.indexPathForSelectedRow != nil {
+            self.navigationItem.rightBarButtonItem?.tintColor = .yellow
+        } else {
+          self.navigationItem.rightBarButtonItem?.tintColor = .gray
+       }
+    }
     
 }
 

@@ -14,7 +14,6 @@ class CustomAlertViewController: UIViewController {
     @IBOutlet weak var inputTextField: UITextField!
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
-    
     var secondVC: SecondViewController!
     
     override func viewDidLoad() {
