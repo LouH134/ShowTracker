@@ -33,6 +33,9 @@ class CustomDeleteAlertViewController: UIViewController {
     }
 
     @IBAction func deletePressed(_ sender: Any) {
+        self.secondVC.deleteSelectedRow()
+        self.dismiss(animated: true, completion:nil)
+        
     }
 
     @IBAction func cancel(_ sender: Any) {

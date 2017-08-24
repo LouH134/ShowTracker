@@ -9,10 +9,9 @@
 
 ///////////////////////////////////////////////////////////////////////////////////
 //                              TO DO                                            //
-//1.delete button deletes show in tableview when highlighted and in coredata    //
-//2. follow show button sends show from possibleshow tableview to followed show //
+//1. follow show button sends show from possibleshow tableview to followed show //
 //tableview in firstVC                                                          //
-//3. change UI of tableview                                                     //
+//2. change UI of tableview                                                     //
 /////////////////////////////////////////////////////////////////////////////////
 
 import UIKit
@@ -24,7 +23,7 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var deleteShowButton: UIButton!
     @IBOutlet weak var possibleShowsTableView: UITableView!
     @IBOutlet weak var addPossibleShowButton: UIButton!
-    var possibleShows: [NSManagedObject] = []
+    var possibleShows: [Show] = []
     var addShowString: String?
     @IBOutlet weak var editBarButton: UIBarButtonItem!
     
@@ -80,7 +79,8 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         
         let managedContext = appDelegate.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Show")
+        let fetchRequest = NSFetchRequest<Show>(entityName: "Show")
+        
         
         do{
             possibleShows = try managedContext.fetch(fetchRequest)
@@ -124,26 +124,47 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         do{
             try managedContext.save()
-            possibleShows.append(possibleShow)
+            possibleShows.append(possibleShow as! Show)
             possibleShowsTableView.reloadData()
         }catch let error as NSError{
             print("Could not Save! \(error), \(error.userInfo)")
         }
     }
     
-    func deletePossibleShow()
+    func deleteSelectedRow(){
+        
+        let indexPath = possibleShowsTableView.indexPathForSelectedRow
+        guard let index = indexPath else {
+            return
+        }
+        deletePossibleShow(atIndexPath: index)
+    }
+    
+    func deletePossibleShow(atIndexPath indexPath: IndexPath)
     {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else{
             return
         }
         let managedContext = appDelegate.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Show")
+
+        let thisPossibleShow = possibleShows[indexPath.row]
         
-        possibleShows = try! managedContext.fetch(fetchRequest)
-        
-        for show in possibleShows{
-            managedContext.delete(show)
+            for show in possibleShows{
+                if (show.showName == thisPossibleShow.showName){
+                    managedContext.delete(show)
+                }
         }
+        
+        do {
+            try managedContext.save()
+        } catch let error as NSError {
+            print("Error While Fetching Data From DB: \(error.userInfo)")
+            
+        }
+    
+        self.possibleShows.remove(at: indexPath.row)
+        self.possibleShowsTableView.deleteRows(at: [indexPath], with: .fade)
+        
         
     }
     
@@ -189,12 +210,38 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        
+        if editingStyle == .delete {
+            
+            deletePossibleShow(atIndexPath: indexPath)
+            //delete the cell
+            
+        }
+    }
+    //if all entries in tableview are deleted buttons are still active, need to change to deactive and grayed out
+    
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
     
         if tableView.indexPathForSelectedRow != nil {
             self.navigationItem.rightBarButtonItem?.tintColor = .yellow
+            self.navigationItem.rightBarButtonItem?.isEnabled = true
+            
+            addShowButton.isEnabled = true
+            addShowButton.setTitleColor(.yellow, for: .normal)
+            
+            deleteShowButton.isEnabled = true
+            deleteShowButton.setTitleColor(.yellow, for: .normal)
         } else {
-          self.navigationItem.rightBarButtonItem?.tintColor = .gray
+            self.navigationItem.rightBarButtonItem?.tintColor = .gray
+            self.navigationItem.rightBarButtonItem?.isEnabled = false
+            
+            addShowButton.isEnabled = false
+            addShowButton.tintColor = .gray
+            
+            deleteShowButton.isEnabled = false
+            deleteShowButton.tintColor = .gray
+
        }
     }
     
