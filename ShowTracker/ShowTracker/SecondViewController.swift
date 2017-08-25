@@ -89,6 +89,23 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
+    
+    @IBAction func goToEditVC(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let editShowVC = storyboard.instantiateViewController(withIdentifier: "editShowViewController") as! EditShowViewController
+        self.navigationController?.pushViewController(editShowVC, animated: true)
+        
+        
+        let indexPath = possibleShowsTableView.indexPathForSelectedRow
+        guard let index = indexPath else{
+            return
+        }
+        
+        let currentShow = possibleShows[index.row]
+        
+        editShowVC.currentlySelectedShow = currentShow
+    }
+    
     @IBAction func addShow(_ sender: Any) {
     }
 
@@ -132,8 +149,8 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func deleteSelectedRow(){
-        
         let indexPath = possibleShowsTableView.indexPathForSelectedRow
+        //guard statement because it is possible that the indexPath is nil
         guard let index = indexPath else {
             return
         }
@@ -146,7 +163,8 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
             return
         }
         let managedContext = appDelegate.persistentContainer.viewContext
-
+        
+        //currently selected show or highlighted show in tableview
         let thisPossibleShow = possibleShows[indexPath.row]
         
             for show in possibleShows{
@@ -164,6 +182,18 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
         self.possibleShows.remove(at: indexPath.row)
         self.possibleShowsTableView.deleteRows(at: [indexPath], with: .fade)
+        
+        if possibleShows.count == 0 {
+            self.navigationItem.rightBarButtonItem?.tintColor = .gray
+            self.navigationItem.rightBarButtonItem?.isEnabled = false
+            
+            addShowButton.isEnabled = false
+            addShowButton.setTitleColor(.gray, for: .normal)
+            
+            deleteShowButton.isEnabled = false
+            deleteShowButton.setTitleColor(.gray, for: .normal)
+            
+        }
         
         
     }
@@ -206,8 +236,6 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
             deleteShowButton.isEnabled = false
             deleteShowButton.tintColor = .gray
         }
-        
-        
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {

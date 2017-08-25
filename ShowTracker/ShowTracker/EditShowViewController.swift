@@ -8,13 +8,13 @@
 
 ///////////////////////////////////////////////////////////////////////////
 //                          TO DO                                        //
-//1. Label is title of show                                              //
-//2. Once info is entered save button saves to core data                //
-//3. Button highlight is changed when pressed                           //
-//4. Create Array to rank shows                                         //
+//1. Once some info is entered save button saves to core data            //
+//2. Create Array to rank shows                                         //
+//3. Change currentseason, currentepisode from string to int            //
 /////////////////////////////////////////////////////////////////////////
 
 import UIKit
+import CoreData
 
 class EditShowViewController: UIViewController, UITextViewDelegate{
     
@@ -26,17 +26,19 @@ class EditShowViewController: UIViewController, UITextViewDelegate{
     @IBOutlet weak var totalEpisodesTxtField: UITextField!
     @IBOutlet weak var totalSeasonTxtField: UITextField!
     @IBOutlet weak var saveShowButton: UIButton!
+    var currentlySelectedShow:Show!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        //UI for NavController and action to go back
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.yellow]
         self.title = "Edit Show"
         let barButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(goBack))
         self.navigationItem.leftBarButtonItem = barButtonItem
         barButtonItem.tintColor = UIColor.yellow
         
+        //UI for button and textfields
         saveShowButton.layer.cornerRadius = 5
         saveShowButton.layer.borderWidth = 2.5
         saveShowButton.layer.borderColor = UIColor.purple.cgColor
@@ -69,6 +71,20 @@ class EditShowViewController: UIViewController, UITextViewDelegate{
         summaryTextView.layer.borderWidth = 2.5
         summaryTextView.layer.borderColor = UIColor.purple.cgColor
         
+        showTitleLabel.text = currentlySelectedShow.showName
+        
+        //simple actions
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)
+        
+        saveShowButton.isEnabled = false
+        saveShowButton.setTitleColor(.gray, for: .normal)
+        
+    }
+    
+    func dismissKeyboard()
+    {
+        view.endEditing(true)
     }
     
     func goBack()
@@ -76,7 +92,7 @@ class EditShowViewController: UIViewController, UITextViewDelegate{
         //print("Back button pressed")
         self.navigationController?.popViewController(animated: true)
     }
-    
+    //Functions for textView
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.textColor == UIColor.yellow {
             textView.text = nil
@@ -89,6 +105,11 @@ class EditShowViewController: UIViewController, UITextViewDelegate{
         }
     }
     
+    //Fuction to enable save button
+    func textFieldChanged()
+    {
+        
+    }
     
     @IBAction func saveShow(_ sender: Any) {
     }
