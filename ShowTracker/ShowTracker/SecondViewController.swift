@@ -107,6 +107,20 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     @IBAction func addShow(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let firstVC = storyboard.instantiateViewController(withIdentifier: "firstViewController") as! FirstViewController
+        self.navigationController?.pushViewController(firstVC, animated: true)
+        
+        
+        let indexPath = possibleShowsTableView.indexPathForSelectedRow
+        guard let index = indexPath else{
+            return
+        }
+        
+        let currentShow = possibleShows[index.row]
+        
+        firstVC.selectedShow = currentShow
+        
     }
 
     @IBAction func deleteShow(_ sender: Any) {

@@ -16,17 +16,21 @@
 ////////////////////////////////////////////////////////////////////////////////////
 
 import UIKit
+import CoreData
 
-class FirstViewController: UIViewController {
+class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
 
     @IBOutlet weak var detailButton: UIButton!
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var followedShowsTableView: UITableView!
+    var followedShows:[Show] = []
+    var selectedShow:Show?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Tab bar and nav controler UI
         self.navigationController?.navigationBar.barTintColor = UIColor.purple
         self.navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.yellow]
@@ -35,6 +39,7 @@ class FirstViewController: UIViewController {
         self.tabBarController?.tabBar.isTranslucent = false
         self.tabBarController?.tabBar.tintColor = UIColor.yellow
         
+        //UI for buttons
         deleteButton.layer.cornerRadius = 5
         deleteButton.layer.borderWidth = 2.5
         deleteButton.layer.borderColor = UIColor.purple.cgColor
@@ -44,6 +49,29 @@ class FirstViewController: UIViewController {
         detailButton.layer.borderWidth = 2.5
         detailButton.layer.borderColor = UIColor.purple.cgColor
         detailButton.contentEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
+        
+        //Disable buttons when nothing is selected
+        self.navigationItem.rightBarButtonItem?.tintColor = .gray
+        self.navigationItem.rightBarButtonItem?.isEnabled = false
+        
+        detailButton.isEnabled = false
+        detailButton.setTitleColor(.gray, for: .normal)
+        
+        deleteButton.isEnabled = false
+        deleteButton.setTitleColor(.gray, for: .normal)
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if selectedShow != nil{
+            followedShows.append(selectedShow!)
+            followedShowsTableView.reloadData()
+            
+        }
+        
+        
     }
     
     @IBAction func deleteShow(_ sender: Any) {
@@ -51,6 +79,26 @@ class FirstViewController: UIViewController {
     
     @IBAction func showDetails(_ sender: Any) {
     }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return followedShows.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = followedShowsTableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        
+        let followedShow = followedShows[indexPath.row]
+        
+        cell.textLabel?.text = followedShow.value(forKey: "showName") as? String
+        
+        return cell
+    }
+    
+    
   
 
 
