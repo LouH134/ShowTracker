@@ -12,6 +12,8 @@
 //1. follow show button sends show from possibleshow tableview to followed show //
 //tableview in firstVC                                                          //
 //2. change UI of tableview                                                     //
+//3. fix bug. New shows to table view aren't appearing in order                 //
+//4. fix bug. Can't navigate from secondVC back to FirstVC                      //
 /////////////////////////////////////////////////////////////////////////////////
 
 import UIKit

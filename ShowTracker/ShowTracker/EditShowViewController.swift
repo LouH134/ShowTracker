@@ -6,13 +6,6 @@
 //  Copyright © 2017 Louis Harris. All rights reserved.
 //
 
-///////////////////////////////////////////////////////////////////////////
-//                          TO DO                                        //
-//1. Once some info is entered save button saves to core data            //
-//2. Create Array to rank shows                                          //
-//3. bool for coredata is connected to bool from switch                 //
-/////////////////////////////////////////////////////////////////////////
-
 import UIKit
 import CoreData
 
@@ -40,6 +33,7 @@ class EditShowViewController: UIViewController, UITextViewDelegate{
         let barButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(goBack))
         self.navigationItem.leftBarButtonItem = barButtonItem
         barButtonItem.tintColor = UIColor.yellow
+        
         
         //UI for button and textfields
         saveShowButton.layer.cornerRadius = 5
@@ -74,7 +68,44 @@ class EditShowViewController: UIViewController, UITextViewDelegate{
         summaryTextView.layer.borderWidth = 2.5
         summaryTextView.layer.borderColor = UIColor.purple.cgColor
         
+        //behavoir for diplaying or not displaying attributes of show
         showTitleLabel.text = currentlySelectedShow.showName
+        
+        if summaryTextView.text != "Enter Summary..."{
+            summaryTextView.text = currentlySelectedShow.summary
+        }else{
+            summaryTextView.text = "Enter Summary..."
+        }
+        
+        if currentEpisodeTxtField.text == nil{
+            currentEpisodeTxtField.placeholder = "Enter Current Episode..."
+        }else{
+            currentEpisodeTxtField.text = currentlySelectedShow.currentEpisode
+        }
+        
+        if totalEpisodesTxtField.text == nil{
+            totalEpisodesTxtField.placeholder = "Enter Total # of Episodes..."
+        }else{
+            totalEpisodesTxtField.text = currentlySelectedShow.totalEpisodes
+        }
+        
+        if currentSeasonTxtField.text == nil{
+            currentSeasonTxtField.placeholder = "Enter Current Season..."
+        }else{
+            currentSeasonTxtField.text = currentlySelectedShow.currentSeason
+        }
+        
+        if totalSeasonTxtField.text == nil{
+            totalSeasonTxtField.placeholder = "Enter Total # of Seasons..."
+        }else{
+            totalSeasonTxtField.text = currentlySelectedShow.totalSeasons
+        }
+        
+        if rankTxtField.text == nil{
+            rankTxtField.placeholder = "Enter Rank..."
+        }else{
+            rankTxtField.text = currentlySelectedShow.rank
+        }
         
         //simple actions
         
@@ -89,6 +120,7 @@ class EditShowViewController: UIViewController, UITextViewDelegate{
         saveShowButton.isEnabled = false
         saveShowButton.setTitleColor(.gray, for: .normal)
         
+        textFieldChanged()
         handleTextField()
 
     }
@@ -155,15 +187,20 @@ class EditShowViewController: UIViewController, UITextViewDelegate{
     @IBAction func airing(_ sender: UISwitch) {
         if airingSwitch.isOn == true
         {
-            airingLabel.isHidden = false
+            airingLabel.text = "Yes"
             currentlySelectedShow.airing = true
         }else{
-            airingLabel.isHidden = true
+            airingLabel.text = "No"
             currentlySelectedShow.airing = false
         }
     }
     
     @IBAction func saveShow(_ sender: Any) {
+        updateShow()
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let firstVC = storyboard.instantiateViewController(withIdentifier: "firstViewController") as! FirstViewController
+        self.navigationController?.pushViewController(firstVC, animated: true)
     }
     
     //func to save to coredata
@@ -175,7 +212,27 @@ class EditShowViewController: UIViewController, UITextViewDelegate{
         currentlySelectedShow.totalSeasons = totalSeasonTxtField.text
         currentlySelectedShow.summary = summaryTextView.text
         currentlySelectedShow.rank = rankTxtField.text
-        //currentlySelectedShow.airing =
         
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else{
+            return
+        }
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let entity = NSEntityDescription.entity(forEntityName:"Show", in: managedContext)
+        let currentShow = NSManagedObject(entity: entity!, insertInto: managedContext)
+        
+        currentShow.setValue(currentlySelectedShow.currentEpisode, forKey: "currentEpisode")
+        currentShow.setValue(currentlySelectedShow.totalEpisodes, forKey: "totalEpisodes")
+        currentShow.setValue(currentlySelectedShow.currentSeason, forKey: "currentSeason")
+        currentShow.setValue(currentlySelectedShow.totalSeasons, forKey: "totalSeasons")
+        currentShow.setValue(currentlySelectedShow.summary, forKey: "summary")
+        currentShow.setValue(currentlySelectedShow.rank, forKey: "rank")
+        currentShow.setValue(currentlySelectedShow.airing, forKey: "airing")
+        
+        do{
+            try managedContext.save()
+        }catch let error as NSError{
+            print("Could not Save! \(error), \(error.userInfo)")
+        }
     }
 }
