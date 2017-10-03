@@ -12,9 +12,10 @@
 //1. follow show button sends show from possibleshow tableview to followed show //
 //tableview in firstVC                                                          //
 //2. change UI of tableview                                                     //
-//3. fix bug. New shows to table view aren't appearing in order                 //
-//4. fix bug. Can't navigate from secondVC back to FirstVC                      //
-/////////////////////////////////////////////////////////////////////////////////
+//3. fix bug. Can't navigate from secondVC back to FirstVC                      //
+//4. fix bug. After saving a show and going back to SecondVC then back to EditVC//
+//will only show saved show won't show selected show.                           //
+//////////////////////////////////////////////////////////////////////////////////
 
 import UIKit
 import CoreData
@@ -25,10 +26,9 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var deleteShowButton: UIButton!
     @IBOutlet weak var possibleShowsTableView: UITableView!
     @IBOutlet weak var addPossibleShowButton: UIButton!
+    @IBOutlet weak var editBarButton: UIBarButtonItem!
     var possibleShows: [Show] = []
     var addShowString: String?
-    @IBOutlet weak var editBarButton: UIBarButtonItem!
-    
     
     
     override func viewDidLoad() {
@@ -44,20 +44,7 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         
         //UI for buttons
-        addShowButton.layer.cornerRadius = 5
-        addShowButton.layer.borderWidth = 2.5
-        addShowButton.layer.borderColor = UIColor.purple.cgColor
-        addShowButton.contentEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
-
-        deleteShowButton.layer.cornerRadius = 5
-        deleteShowButton.layer.borderWidth = 2.5
-        deleteShowButton.layer.borderColor = UIColor.purple.cgColor
-        deleteShowButton.contentEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
-        
-        addPossibleShowButton.layer.cornerRadius = 5
-        addPossibleShowButton.layer.borderWidth = 2.5
-        addPossibleShowButton.layer.borderColor = UIColor.purple.cgColor
-        addPossibleShowButton.contentEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
+        designForUI()
         
         //Disable buttons when nothing is selected
         self.navigationItem.rightBarButtonItem?.tintColor = .gray
@@ -69,6 +56,23 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
         //Setting up tableview
         self.possibleShowsTableView.delegate = self
         self.possibleShowsTableView.dataSource = self
+    }
+    
+    func designForUI(){
+        addShowButton.layer.cornerRadius = 5
+        addShowButton.layer.borderWidth = 2.5
+        addShowButton.layer.borderColor = UIColor.purple.cgColor
+        addShowButton.contentEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
+        
+        deleteShowButton.layer.cornerRadius = 5
+        deleteShowButton.layer.borderWidth = 2.5
+        deleteShowButton.layer.borderColor = UIColor.purple.cgColor
+        deleteShowButton.contentEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
+        
+        addPossibleShowButton.layer.cornerRadius = 5
+        addPossibleShowButton.layer.borderWidth = 2.5
+        addPossibleShowButton.layer.borderColor = UIColor.purple.cgColor
+        addPossibleShowButton.contentEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
     }
     
     
@@ -93,9 +97,11 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     
     @IBAction func goToEditVC(_ sender: Any) {
+        //possibleShowsTableView.reloadData()
+        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let editShowVC = storyboard.instantiateViewController(withIdentifier: "editShowViewController") as! EditShowViewController
-        self.navigationController?.pushViewController(editShowVC, animated: true)
+       
         
         
         let indexPath = possibleShowsTableView.indexPathForSelectedRow
@@ -103,9 +109,10 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
             return
         }
         
-        let currentShow = possibleShows[index.row]
+        let currentShow = possibleShows[possibleShows.count - index.row-1]
         
         editShowVC.currentlySelectedShow = currentShow
+        self.navigationController?.pushViewController(editShowVC, animated: true)
     }
     
     @IBAction func addShow(_ sender: Any) {
@@ -119,7 +126,7 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
             return
         }
         
-        let currentShow = possibleShows[index.row]
+        let currentShow = possibleShows[possibleShows.count - index.row-1]
         
         firstVC.selectedShow = currentShow
         
@@ -181,7 +188,7 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let managedContext = appDelegate.persistentContainer.viewContext
         
         //currently selected show or highlighted show in tableview
-        let thisPossibleShow = possibleShows[indexPath.row]
+        let thisPossibleShow = possibleShows[possibleShows.count - indexPath.row-1]
         
             for show in possibleShows{
                 if (show.showName == thisPossibleShow.showName){
@@ -196,7 +203,7 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
             
         }
     
-        self.possibleShows.remove(at: indexPath.row)
+        self.possibleShows.remove(at: possibleShows.count - indexPath.row-1)
         self.possibleShowsTableView.deleteRows(at: [indexPath], with: .fade)
         
         if possibleShows.count == 0 {
@@ -210,8 +217,6 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
             deleteShowButton.setTitleColor(.gray, for: .normal)
             
         }
-        
-        
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -225,7 +230,7 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = possibleShowsTableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         
-        let possibleShow = possibleShows[indexPath.row]
+        let possibleShow = possibleShows[possibleShows.count - indexPath.row-1]
         
         cell.textLabel?.text = possibleShow.value(forKey: "showName") as? String
         

@@ -34,41 +34,31 @@ class EditShowViewController: UIViewController, UITextViewDelegate{
         self.navigationItem.leftBarButtonItem = barButtonItem
         barButtonItem.tintColor = UIColor.yellow
         
-        
         //UI for button and textfields
-        saveShowButton.layer.cornerRadius = 5
-        saveShowButton.layer.borderWidth = 2.5
-        saveShowButton.layer.borderColor = UIColor.purple.cgColor
-        saveShowButton.contentEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
-        
-        currentEpisodeTxtField.layer.cornerRadius = 5
-        currentEpisodeTxtField.layer.borderWidth = 2.5
-        currentEpisodeTxtField.layer.borderColor = UIColor.purple.cgColor
-        
-        currentSeasonTxtField.layer.cornerRadius = 5
-        currentSeasonTxtField.layer.borderWidth = 2.5
-        currentSeasonTxtField.layer.borderColor = UIColor.purple.cgColor
-        
-        totalEpisodesTxtField.layer.cornerRadius = 5
-        totalEpisodesTxtField.layer.borderWidth = 2.5
-        totalEpisodesTxtField.layer.borderColor = UIColor.purple.cgColor
-        
-        totalSeasonTxtField.layer.cornerRadius = 5
-        totalSeasonTxtField.layer.borderWidth = 2.5
-        totalSeasonTxtField.layer.borderColor = UIColor.purple.cgColor
-        
-        rankTxtField.layer.cornerRadius = 5
-        rankTxtField.layer.borderWidth = 2.5
-        rankTxtField.layer.borderColor = UIColor.purple.cgColor
-        
-        summaryTextView.delegate = self
-        
-        summaryTextView.text = "Enter Summary..."
-        summaryTextView.textColor = UIColor.yellow
-        summaryTextView.layer.borderWidth = 2.5
-        summaryTextView.layer.borderColor = UIColor.purple.cgColor
+        designForUI()
         
         //behavoir for diplaying or not displaying attributes of show
+        showAttributes()
+        
+        //simple actions
+        
+        self.keyboardHeight = self.view.frame
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)
+        
+        saveShowButton.isEnabled = false
+        saveShowButton.setTitleColor(.gray, for: .normal)
+        
+        textFieldChanged()
+        handleTextField()
+
+    }
+    
+    func showAttributes(){
         showTitleLabel.text = currentlySelectedShow.showName
         
         if summaryTextView.text != "Enter Summary..."{
@@ -107,22 +97,47 @@ class EditShowViewController: UIViewController, UITextViewDelegate{
             rankTxtField.text = currentlySelectedShow.rank
         }
         
-        //simple actions
+        if currentlySelectedShow.airing == false{
+            airingSwitch.isOn = false
+            airingLabel.text = "No"
+        }else{
+            airingSwitch.isOn = true
+            airingLabel.text = "Yes"
+        }
+    }
+    
+    func designForUI(){
+        saveShowButton.layer.cornerRadius = 5
+        saveShowButton.layer.borderWidth = 2.5
+        saveShowButton.layer.borderColor = UIColor.purple.cgColor
+        saveShowButton.contentEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
         
-        self.keyboardHeight = self.view.frame
+        currentEpisodeTxtField.layer.cornerRadius = 5
+        currentEpisodeTxtField.layer.borderWidth = 2.5
+        currentEpisodeTxtField.layer.borderColor = UIColor.purple.cgColor
         
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        currentSeasonTxtField.layer.cornerRadius = 5
+        currentSeasonTxtField.layer.borderWidth = 2.5
+        currentSeasonTxtField.layer.borderColor = UIColor.purple.cgColor
         
-        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        view.addGestureRecognizer(tap)
+        totalEpisodesTxtField.layer.cornerRadius = 5
+        totalEpisodesTxtField.layer.borderWidth = 2.5
+        totalEpisodesTxtField.layer.borderColor = UIColor.purple.cgColor
         
-        saveShowButton.isEnabled = false
-        saveShowButton.setTitleColor(.gray, for: .normal)
+        totalSeasonTxtField.layer.cornerRadius = 5
+        totalSeasonTxtField.layer.borderWidth = 2.5
+        totalSeasonTxtField.layer.borderColor = UIColor.purple.cgColor
         
-        textFieldChanged()
-        handleTextField()
-
+        rankTxtField.layer.cornerRadius = 5
+        rankTxtField.layer.borderWidth = 2.5
+        rankTxtField.layer.borderColor = UIColor.purple.cgColor
+        
+        summaryTextView.delegate = self
+        
+        summaryTextView.text = "Enter Summary..."
+        summaryTextView.textColor = UIColor.yellow
+        summaryTextView.layer.borderWidth = 2.5
+        summaryTextView.layer.borderColor = UIColor.purple.cgColor
     }
     
     func keyboardWillShow(notification:NSNotification)
