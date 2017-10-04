@@ -12,10 +12,7 @@
 //1. follow show button sends show from possibleshow tableview to followed show //
 //tableview in firstVC                                                          //
 //2. change UI of tableview                                                     //
-//3. fix bug. Can't navigate from secondVC back to FirstVC                      //
-//4. fix bug. After saving a show and going back to SecondVC then back to EditVC//
-//will only show saved show won't show selected show.                           //
-//////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
 
 import UIKit
 import CoreData
@@ -35,13 +32,11 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
         super.viewDidLoad()
         
         possibleShowsTableView.allowsMultipleSelection = false
-        self.possibleShowsTableView.reloadData()
-        
+       
         //UI for Navbar
         self.navigationController?.navigationBar.barTintColor = UIColor.purple
         self.navigationController?.tabBarController?.tabBar.isTranslucent = false
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.yellow]
-        
         
         //UI for buttons
         designForUI()
@@ -90,11 +85,12 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         do{
             possibleShows = try managedContext.fetch(fetchRequest)
+            self.possibleShowsTableView.reloadData()
+            
         }catch let error as NSError{
             print("Could not fetch! \(error), \(error.userInfo)")
         }
     }
-    
     
     @IBAction func goToEditVC(_ sender: Any) {
         //possibleShowsTableView.reloadData()
@@ -108,6 +104,7 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
         guard let index = indexPath else{
             return
         }
+        // possibleShows.count -
         
         let currentShow = possibleShows[possibleShows.count - index.row-1]
         

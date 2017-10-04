@@ -6,6 +6,12 @@
 //  Copyright © 2017 Louis Harris. All rights reserved.
 //
 
+
+//////////////////////////////////////////////////////////////////////////////////////////
+//                              TO DO:                                                  //
+//1. summaryString doesn't keep changes when finished editing.                          //
+//////////////////////////////////////////////////////////////////////////////////////////
+
 import UIKit
 import CoreData
 
@@ -23,6 +29,7 @@ class EditShowViewController: UIViewController, UITextViewDelegate{
     @IBOutlet weak var airingLabel: UILabel!
     var currentlySelectedShow:Show!
     var keyboardHeight:CGRect!
+    var summaryString:String?
     
     
     override func viewDidLoad() {
@@ -61,10 +68,9 @@ class EditShowViewController: UIViewController, UITextViewDelegate{
     func showAttributes(){
         showTitleLabel.text = currentlySelectedShow.showName
         
-        if summaryTextView.text != "Enter Summary..."{
-            summaryTextView.text = currentlySelectedShow.summary
-        }else{
-            summaryTextView.text = "Enter Summary..."
+        if currentlySelectedShow.summary != nil{
+            summaryString = currentlySelectedShow.summary
+            summaryTextView.text = summaryString
         }
         
         if currentEpisodeTxtField.text == nil{
@@ -166,14 +172,21 @@ class EditShowViewController: UIViewController, UITextViewDelegate{
     }
     //Functions for textView
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.textColor == UIColor.yellow {
-            textView.text = nil
+        if summaryString != nil{
+            textView.text = summaryString
+        }else{
+            if textView.textColor == UIColor.yellow {
+                textView.text = nil
+            }
         }
+        
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        if textView.text.isEmpty {
+        if textView.text.isEmpty && summaryString == nil {
             textView.text = "Enter Summary..."
+        }else{
+            textView.text = summaryString
         }
     }
     
@@ -218,7 +231,6 @@ class EditShowViewController: UIViewController, UITextViewDelegate{
         self.navigationController?.pushViewController(firstVC, animated: true)
     }
     
-    //func to save to coredata
     func updateShow()
     {
         currentlySelectedShow.currentEpisode = currentEpisodeTxtField.text
@@ -233,21 +245,14 @@ class EditShowViewController: UIViewController, UITextViewDelegate{
         }
         
         let managedContext = appDelegate.persistentContainer.viewContext
-        let entity = NSEntityDescription.entity(forEntityName:"Show", in: managedContext)
-        let currentShow = NSManagedObject(entity: entity!, insertInto: managedContext)
-        
-        currentShow.setValue(currentlySelectedShow.currentEpisode, forKey: "currentEpisode")
-        currentShow.setValue(currentlySelectedShow.totalEpisodes, forKey: "totalEpisodes")
-        currentShow.setValue(currentlySelectedShow.currentSeason, forKey: "currentSeason")
-        currentShow.setValue(currentlySelectedShow.totalSeasons, forKey: "totalSeasons")
-        currentShow.setValue(currentlySelectedShow.summary, forKey: "summary")
-        currentShow.setValue(currentlySelectedShow.rank, forKey: "rank")
-        currentShow.setValue(currentlySelectedShow.airing, forKey: "airing")
         
         do{
             try managedContext.save()
+            
         }catch let error as NSError{
             print("Could not Save! \(error), \(error.userInfo)")
         }
+        
     }
+
 }
