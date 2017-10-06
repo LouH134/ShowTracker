@@ -40,15 +40,7 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         self.tabBarController?.tabBar.tintColor = UIColor.yellow
         
         //UI for buttons
-        deleteButton.layer.cornerRadius = 5
-        deleteButton.layer.borderWidth = 2.5
-        deleteButton.layer.borderColor = UIColor.purple.cgColor
-        deleteButton.contentEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
-        
-        detailButton.layer.cornerRadius = 5
-        detailButton.layer.borderWidth = 2.5
-        detailButton.layer.borderColor = UIColor.purple.cgColor
-        detailButton.contentEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
+        designForUI()
         
         //Disable buttons when nothing is selected
         self.navigationItem.rightBarButtonItem?.tintColor = .gray
@@ -60,6 +52,23 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         deleteButton.isEnabled = false
         deleteButton.setTitleColor(.gray, for: .normal)
         
+        self.followedShowsTableView.delegate = self
+        self.followedShowsTableView.dataSource = self
+        followedShowsTableView.reloadData()
+        
+        
+    }
+    
+    func designForUI(){
+        deleteButton.layer.cornerRadius = 5
+        deleteButton.layer.borderWidth = 2.5
+        deleteButton.layer.borderColor = UIColor.purple.cgColor
+        deleteButton.contentEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
+        
+        detailButton.layer.cornerRadius = 5
+        detailButton.layer.borderWidth = 2.5
+        detailButton.layer.borderColor = UIColor.purple.cgColor
+        detailButton.contentEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
     }
     
     override func viewWillAppear(_ animated: Bool) {

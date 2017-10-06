@@ -6,12 +6,6 @@
 //  Copyright © 2017 Louis Harris. All rights reserved.
 //
 
-
-//////////////////////////////////////////////////////////////////////////////////////////
-//                              TO DO:                                                  //
-//1. summaryString doesn't keep changes when finished editing.                          //
-//////////////////////////////////////////////////////////////////////////////////////////
-
 import UIKit
 import CoreData
 
@@ -30,6 +24,7 @@ class EditShowViewController: UIViewController, UITextViewDelegate{
     var currentlySelectedShow:Show!
     var keyboardHeight:CGRect!
     var summaryString:String?
+    var editedSummaryString:String?
     
     
     override func viewDidLoad() {
@@ -186,7 +181,9 @@ class EditShowViewController: UIViewController, UITextViewDelegate{
         if textView.text.isEmpty && summaryString == nil {
             textView.text = "Enter Summary..."
         }else{
-            textView.text = summaryString
+            editedSummaryString = textView.text
+            summaryString = editedSummaryString
+            
         }
     }
     
@@ -227,8 +224,8 @@ class EditShowViewController: UIViewController, UITextViewDelegate{
         updateShow()
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let firstVC = storyboard.instantiateViewController(withIdentifier: "firstViewController") as! FirstViewController
-        self.navigationController?.pushViewController(firstVC, animated: true)
+        let secondVC = storyboard.instantiateViewController(withIdentifier: "secondViewController") as! SecondViewController
+        self.navigationController?.pushViewController(secondVC, animated: true)
     }
     
     func updateShow()

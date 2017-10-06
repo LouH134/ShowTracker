@@ -600,13 +600,31 @@
                                 <rect key="frame" x="0.0" y="64" width="414" height="499"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="Egu-46-MRI">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="Egu-46-MRI" customClass="CustomTableViewCell2" customModule="ShowTracker" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Egu-46-MRI" id="W5h-y8-Tqu">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IhL-MN-o2I">
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="1" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="IhL-MN-o2I" secondAttribute="bottom" id="XOo-q9-R8Z"/>
+                                                <constraint firstAttribute="trailing" secondItem="IhL-MN-o2I" secondAttribute="trailing" id="e3B-cE-Z7e"/>
+                                                <constraint firstItem="IhL-MN-o2I" firstAttribute="leading" secondItem="W5h-y8-Tqu" secondAttribute="leading" id="lW4-Fg-v7v"/>
+                                                <constraint firstItem="IhL-MN-o2I" firstAttribute="top" secondItem="W5h-y8-Tqu" secondAttribute="top" id="mC6-sD-bTb"/>
+                                            </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="mainLabel" destination="IhL-MN-o2I" id="4EF-W1-3tr"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>

@@ -18,6 +18,7 @@
 		6183ABA41F339C8D00414E72 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6183ABA31F339C8D00414E72 /* Assets.xcassets */; };
 		6183ABA71F339C8D00414E72 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6183ABA51F339C8D00414E72 /* LaunchScreen.storyboard */; };
 		61917DBC1F38F41200E31F92 /* EditShowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61917DBB1F38F41200E31F92 /* EditShowViewController.swift */; };
+		61918C161F8825BF00E66BE3 /* CustomTableViewCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61918C141F8825BF00E66BE3 /* CustomTableViewCell2.swift */; };
 		61982D4D1F47742700D191D7 /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61982D4B1F47742700D191D7 /* CustomAlertViewController.swift */; };
 		61982D4E1F47742700D191D7 /* CustomAlertViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61982D4C1F47742700D191D7 /* CustomAlertViewController.xib */; };
 /* End PBXBuildFile section */
@@ -36,6 +37,7 @@
 		6183ABA61F339C8D00414E72 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6183ABA81F339C8D00414E72 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		61917DBB1F38F41200E31F92 /* EditShowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditShowViewController.swift; sourceTree = "<group>"; };
+		61918C141F8825BF00E66BE3 /* CustomTableViewCell2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell2.swift; sourceTree = "<group>"; };
 		61982D4B1F47742700D191D7 /* CustomAlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
 		61982D4C1F47742700D191D7 /* CustomAlertViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomAlertViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -73,6 +75,7 @@
 				6183AB9A1F339C8D00414E72 /* AppDelegate.swift */,
 				6183AB9C1F339C8D00414E72 /* FirstViewController.swift */,
 				6183AB9E1F339C8D00414E72 /* SecondViewController.swift */,
+				61918C141F8825BF00E66BE3 /* CustomTableViewCell2.swift */,
 				614A470C1F4E071100DE38A8 /* CustomDeleteAlertViewController.swift */,
 				614A470D1F4E071100DE38A8 /* CustomDeleteAlertViewController.xib */,
 				61982D4B1F47742700D191D7 /* CustomAlertViewController.swift */,
@@ -171,6 +174,7 @@
 				614A470E1F4E071100DE38A8 /* CustomDeleteAlertViewController.swift in Sources */,
 				61982D4D1F47742700D191D7 /* CustomAlertViewController.swift in Sources */,
 				6155E5291F3B8136004E0DCB /* DetailsViewController.swift in Sources */,
+				61918C161F8825BF00E66BE3 /* CustomTableViewCell2.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

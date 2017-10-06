@@ -6,14 +6,6 @@
 //  Copyright © 2017 Louis Harris. All rights reserved.
 //
 
-
-///////////////////////////////////////////////////////////////////////////////////
-//                              TO DO                                            //
-//1. follow show button sends show from possibleshow tableview to followed show //
-//tableview in firstVC                                                          //
-//2. change UI of tableview                                                     //
-/////////////////////////////////////////////////////////////////////////////////
-
 import UIKit
 import CoreData
 
@@ -37,6 +29,10 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.navigationController?.navigationBar.barTintColor = UIColor.purple
         self.navigationController?.tabBarController?.tabBar.isTranslucent = false
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.yellow]
+        if(self.navigationController?.navigationBar.backItem != nil){
+            self.navigationItem.hidesBackButton = true
+        }
+
         
         //UI for buttons
         designForUI()
@@ -51,7 +47,10 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
         //Setting up tableview
         self.possibleShowsTableView.delegate = self
         self.possibleShowsTableView.dataSource = self
-    }
+        possibleShowsTableView.backgroundColor = UIColor.black
+        possibleShowsTableView.tableFooterView = UIView()
+        
+        }
     
     func designForUI(){
         addShowButton.layer.cornerRadius = 5
@@ -225,11 +224,13 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = possibleShowsTableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let cell = possibleShowsTableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CustomTableViewCell2
         
         let possibleShow = possibleShows[possibleShows.count - indexPath.row-1]
         
-        cell.textLabel?.text = possibleShow.value(forKey: "showName") as? String
+        cell.mainLabel.text = possibleShow.value(forKey: "showName") as? String
+        cell.layer.borderWidth = 1.0
+        cell.layer.borderColor = UIColor.purple.cgColor
         
         return cell
     }
