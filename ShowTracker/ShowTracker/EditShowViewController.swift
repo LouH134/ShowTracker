@@ -22,10 +22,10 @@ class EditShowViewController: UIViewController, UITextViewDelegate{
     @IBOutlet weak var airingSwitch: UISwitch!
     @IBOutlet weak var airingLabel: UILabel!
     var currentlySelectedShow:Show!
+    var allEditedShows:[Show] = []
     var keyboardHeight:CGRect!
     var summaryString:String?
     var editedSummaryString:String?
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -174,7 +174,6 @@ class EditShowViewController: UIViewController, UITextViewDelegate{
                 textView.text = nil
             }
         }
-        
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
@@ -183,7 +182,6 @@ class EditShowViewController: UIViewController, UITextViewDelegate{
         }else{
             editedSummaryString = textView.text
             summaryString = editedSummaryString
-            
         }
     }
     
@@ -207,8 +205,6 @@ class EditShowViewController: UIViewController, UITextViewDelegate{
         rankTxtField.addTarget(self, action: #selector(EditShowViewController.textFieldChanged), for: UIControlEvents.editingChanged)
     }
     
-    
-    
     @IBAction func airing(_ sender: UISwitch) {
         if airingSwitch.isOn == true
         {
@@ -221,11 +217,29 @@ class EditShowViewController: UIViewController, UITextViewDelegate{
     }
     
     @IBAction func saveShow(_ sender: Any) {
-        updateShow()
-        
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let secondVC = storyboard.instantiateViewController(withIdentifier: "secondViewController") as! SecondViewController
-        self.navigationController?.pushViewController(secondVC, animated: true)
+        var flag = true
+        for show in self.allEditedShows {
+            if show.rank != nil  {
+                if show.rank == rankTxtField.text {
+                    // we can't save
+                    flag = false
+                    break
+                }
+            }
+        }
+        if flag{
+            updateShow()
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let secondVC = storyboard.instantiateViewController(withIdentifier: "secondViewController") as! SecondViewController
+            self.navigationController?.pushViewController(secondVC, animated: true)
+        }else{
+            // throw a error
+            let customAlert = CustomRankAlertViewController()
+            customAlert.modalPresentationStyle = .overCurrentContext
+            customAlert.modalTransitionStyle = .crossDissolve
+            present(customAlert, animated: true)
+        }
     }
     
     func updateShow()
@@ -249,7 +263,5 @@ class EditShowViewController: UIViewController, UITextViewDelegate{
         }catch let error as NSError{
             print("Could not Save! \(error), \(error.userInfo)")
         }
-        
     }
-
 }

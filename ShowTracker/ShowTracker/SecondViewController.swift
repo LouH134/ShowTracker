@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
 
     @IBOutlet weak var addShowButton: UIButton!
     @IBOutlet weak var deleteShowButton: UIButton!
@@ -18,7 +18,6 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var editBarButton: UIBarButtonItem!
     var possibleShows: [Show] = []
     var addShowString: String?
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +32,6 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
             self.navigationItem.hidesBackButton = true
         }
 
-        
         //UI for buttons
         designForUI()
         
@@ -42,7 +40,6 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.navigationItem.rightBarButtonItem?.isEnabled = false
         addShowButton.isEnabled = false
         deleteShowButton.isEnabled = false
-        
         
         //Setting up tableview
         self.possibleShowsTableView.delegate = self
@@ -73,14 +70,16 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        //look at core data for saved shows
+        possibleShowsTableView.reloadData()
+        
+        //look at core data for saved shows only shows that aren't followed
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else{
             return
         }
         
         let managedContext = appDelegate.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<Show>(entityName: "Show")
-        
+        fetchRequest.predicate = NSPredicate(format: "followed == false")
         
         do{
             possibleShows = try managedContext.fetch(fetchRequest)
@@ -92,40 +91,54 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     @IBAction func goToEditVC(_ sender: Any) {
-        //possibleShowsTableView.reloadData()
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let editShowVC = storyboard.instantiateViewController(withIdentifier: "editShowViewController") as! EditShowViewController
-       
-        
         
         let indexPath = possibleShowsTableView.indexPathForSelectedRow
         guard let index = indexPath else{
             return
         }
-        // possibleShows.count -
         
         let currentShow = possibleShows[possibleShows.count - index.row-1]
         
         editShowVC.currentlySelectedShow = currentShow
+        editShowVC.allEditedShows = possibleShows
+        
         self.navigationController?.pushViewController(editShowVC, animated: true)
     }
     
     @IBAction func addShow(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let firstVC = storyboard.instantiateViewController(withIdentifier: "firstViewController") as! FirstViewController
-        self.navigationController?.pushViewController(firstVC, animated: true)
-        
         
         let indexPath = possibleShowsTableView.indexPathForSelectedRow
         guard let index = indexPath else{
             return
         }
-        
         let currentShow = possibleShows[possibleShows.count - index.row-1]
+        currentShow.followed = true
         
         firstVC.selectedShow = currentShow
+        firstVC.allShows = possibleShows
         
+        self.possibleShows.remove(at: possibleShows.count - index.row - 1)
+        self.possibleShowsTableView.deleteRows(at: [index], with: .fade)
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else{
+            return
+        }
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        do{
+            try managedContext.save()
+            
+        }catch let error as NSError{
+            print("Could not Save! \(error), \(error.userInfo)")
+        }
+        
+        self.tabBarController?.selectedIndex = 0
     }
 
     @IBAction func deleteShow(_ sender: Any) {
@@ -142,8 +155,6 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
         customAlert.modalPresentationStyle = .overCurrentContext
         customAlert.modalTransitionStyle = .crossDissolve
         present(customAlert, animated: true)
-        
-        self.tabBarController?.tabBar.isUserInteractionEnabled = false
     }
     
     func save(name:String)
@@ -157,6 +168,7 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let possibleShow = NSManagedObject(entity: entity!, insertInto: managedContext)
         
         possibleShow.setValue(name, forKey: "showName")
+        possibleShow.setValue(false, forKey: "followed")
         
         do{
             try managedContext.save()
@@ -232,6 +244,10 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
         cell.layer.borderWidth = 1.0
         cell.layer.borderColor = UIColor.purple.cgColor
         
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = UIColor.purple
+        cell.selectedBackgroundView = backgroundView
+        
         return cell
     }
 
@@ -263,11 +279,10 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
             
             deletePossibleShow(atIndexPath: indexPath)
             //delete the cell
-            
         }
     }
-    //if all entries in tableview are deleted buttons are still active, need to change to deactive and grayed out
     
+    //if all entries in tableview are deleted buttons are still active, need to change to deactive and grayed out
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
     
         if tableView.indexPathForSelectedRow != nil {
@@ -288,11 +303,6 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
             
             deleteShowButton.isEnabled = false
             deleteShowButton.tintColor = .gray
-
        }
     }
-    
 }
-
-
-
