@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CustomDeleteShowAlertViewController" customModule="ShowTracker" customModuleProvider="target">
+            <connections>
+                <outlet property="DeleteShowView" destination="ATT-Sz-7Qq" id="RTt-DE-w9s"/>
+                <outlet property="cancelButton" destination="Nz4-lo-Npz" id="BIo-24-NYc"/>
+                <outlet property="deleteShowButton" destination="mtF-P5-BCD" id="eC7-Lj-DcI"/>
+                <outlet property="deleteShowView" destination="ATT-Sz-7Qq" id="XJ5-lU-2a4"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ATT-Sz-7Qq">
+                    <rect key="frame" x="31" y="250" width="312.5" height="167"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Delete Show" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WSI-hO-TGd">
+                            <rect key="frame" x="8" y="8" width="296.5" height="30"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                            <color key="textColor" red="1" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Are you sure you want to Delete That Show?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sEN-sm-r9q">
+                            <rect key="frame" x="8" y="66" width="296.5" height="36"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="textColor" red="1" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mtF-P5-BCD">
+                            <rect key="frame" x="0.0" y="125" width="156.5" height="42"/>
+                            <state key="normal" title="Delete">
+                                <color key="titleColor" red="1" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="deleteShow:" destination="-1" eventType="touchUpInside" id="VX9-nw-qDf"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nz4-lo-Npz">
+                            <rect key="frame" x="156.5" y="125.5" width="156" height="41.5"/>
+                            <state key="normal" title="Cancel">
+                                <color key="titleColor" red="1" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="cancel:" destination="-1" eventType="touchUpInside" id="yWa-Ng-l4h"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="sEN-sm-r9q" firstAttribute="leading" secondItem="ATT-Sz-7Qq" secondAttribute="leading" constant="8" id="81d-E5-bC9"/>
+                        <constraint firstItem="Nz4-lo-Npz" firstAttribute="height" secondItem="ATT-Sz-7Qq" secondAttribute="height" multiplier="1/4" id="HFI-MP-66w"/>
+                        <constraint firstItem="WSI-hO-TGd" firstAttribute="leading" secondItem="ATT-Sz-7Qq" secondAttribute="leading" constant="8" id="Io4-cV-xpg"/>
+                        <constraint firstItem="sEN-sm-r9q" firstAttribute="centerY" secondItem="ATT-Sz-7Qq" secondAttribute="centerY" id="K9v-L0-CDW"/>
+                        <constraint firstItem="mtF-P5-BCD" firstAttribute="width" secondItem="ATT-Sz-7Qq" secondAttribute="width" multiplier="1/2" id="L17-bR-H1V"/>
+                        <constraint firstAttribute="bottom" secondItem="mtF-P5-BCD" secondAttribute="bottom" id="PkZ-IY-OY7"/>
+                        <constraint firstItem="mtF-P5-BCD" firstAttribute="leading" secondItem="ATT-Sz-7Qq" secondAttribute="leading" id="YWM-G9-uqK"/>
+                        <constraint firstAttribute="bottom" secondItem="Nz4-lo-Npz" secondAttribute="bottom" id="ewb-mM-hUn"/>
+                        <constraint firstAttribute="trailing" secondItem="sEN-sm-r9q" secondAttribute="trailing" constant="8" id="fTt-Kj-NOw"/>
+                        <constraint firstItem="WSI-hO-TGd" firstAttribute="top" secondItem="ATT-Sz-7Qq" secondAttribute="top" constant="8" id="hjr-Qt-Bbk"/>
+                        <constraint firstAttribute="trailing" secondItem="WSI-hO-TGd" secondAttribute="trailing" constant="8" id="jqH-MN-kI1"/>
+                        <constraint firstAttribute="trailing" secondItem="Nz4-lo-Npz" secondAttribute="trailing" id="ofo-M0-8yI"/>
+                        <constraint firstItem="Nz4-lo-Npz" firstAttribute="width" secondItem="ATT-Sz-7Qq" secondAttribute="width" multiplier="1/2" id="pmt-eb-XSz"/>
+                        <constraint firstItem="mtF-P5-BCD" firstAttribute="height" secondItem="ATT-Sz-7Qq" secondAttribute="height" multiplier="1/4" id="swZ-nV-lHL"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="ATT-Sz-7Qq" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="5/6" id="ETh-5H-fnZ"/>
+                <constraint firstItem="ATT-Sz-7Qq" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="Nua-2Z-iJN"/>
+                <constraint firstItem="ATT-Sz-7Qq" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="WXs-yk-adV"/>
+                <constraint firstItem="ATT-Sz-7Qq" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="1/4" id="tkp-ug-MRO"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+        </view>
+    </objects>
+</document>

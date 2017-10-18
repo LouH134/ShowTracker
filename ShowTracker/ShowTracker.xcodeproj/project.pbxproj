@@ -21,6 +21,8 @@
 		61918C161F8825BF00E66BE3 /* CustomTableViewCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61918C141F8825BF00E66BE3 /* CustomTableViewCell2.swift */; };
 		61982D4D1F47742700D191D7 /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61982D4B1F47742700D191D7 /* CustomAlertViewController.swift */; };
 		61982D4E1F47742700D191D7 /* CustomAlertViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61982D4C1F47742700D191D7 /* CustomAlertViewController.xib */; };
+		61A9CA971F97FB3000B6388D /* CustomDeleteShowAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A9CA951F97FB3000B6388D /* CustomDeleteShowAlertViewController.swift */; };
+		61A9CA981F97FB3000B6388D /* CustomDeleteShowAlertViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61A9CA961F97FB3000B6388D /* CustomDeleteShowAlertViewController.xib */; };
 		61EEE5451F914BE80021BC9D /* CustomRankAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61EEE5431F914BE80021BC9D /* CustomRankAlertViewController.swift */; };
 		61EEE5461F914BE80021BC9D /* CustomRankAlertViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61EEE5441F914BE80021BC9D /* CustomRankAlertViewController.xib */; };
 /* End PBXBuildFile section */
@@ -42,6 +44,8 @@
 		61918C141F8825BF00E66BE3 /* CustomTableViewCell2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell2.swift; sourceTree = "<group>"; };
 		61982D4B1F47742700D191D7 /* CustomAlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
 		61982D4C1F47742700D191D7 /* CustomAlertViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomAlertViewController.xib; sourceTree = "<group>"; };
+		61A9CA951F97FB3000B6388D /* CustomDeleteShowAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDeleteShowAlertViewController.swift; sourceTree = "<group>"; };
+		61A9CA961F97FB3000B6388D /* CustomDeleteShowAlertViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomDeleteShowAlertViewController.xib; sourceTree = "<group>"; };
 		61EEE5431F914BE80021BC9D /* CustomRankAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRankAlertViewController.swift; sourceTree = "<group>"; };
 		61EEE5441F914BE80021BC9D /* CustomRankAlertViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomRankAlertViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -77,17 +81,13 @@
 			isa = PBXGroup;
 			children = (
 				6183AB9A1F339C8D00414E72 /* AppDelegate.swift */,
-				6183AB9C1F339C8D00414E72 /* FirstViewController.swift */,
-				6183AB9E1F339C8D00414E72 /* SecondViewController.swift */,
-				61918C141F8825BF00E66BE3 /* CustomTableViewCell2.swift */,
-				614A470C1F4E071100DE38A8 /* CustomDeleteAlertViewController.swift */,
-				614A470D1F4E071100DE38A8 /* CustomDeleteAlertViewController.xib */,
-				61EEE5431F914BE80021BC9D /* CustomRankAlertViewController.swift */,
-				61EEE5441F914BE80021BC9D /* CustomRankAlertViewController.xib */,
-				61982D4B1F47742700D191D7 /* CustomAlertViewController.swift */,
-				61982D4C1F47742700D191D7 /* CustomAlertViewController.xib */,
+				61A9CA991F97FB4E00B6388D /* TabBar VCs */,
+				61A9CA9A1F97FB8900B6388D /* DeleteAlerts */,
+				61A9CA9B1F97FBE900B6388D /* RankAlert */,
+				61A9CA9C1F97FC1B00B6388D /* AddShow */,
 				61917DBB1F38F41200E31F92 /* EditShowViewController.swift */,
 				6155E5281F3B8136004E0DCB /* DetailsViewController.swift */,
+				61918C141F8825BF00E66BE3 /* CustomTableViewCell2.swift */,
 				615B2E751F3D0132000A7DD3 /* ShowTrackerModel.xcdatamodeld */,
 				6183ABA01F339C8D00414E72 /* Main.storyboard */,
 				6183ABA31F339C8D00414E72 /* Assets.xcassets */,
@@ -95,6 +95,44 @@
 				6183ABA81F339C8D00414E72 /* Info.plist */,
 			);
 			path = ShowTracker;
+			sourceTree = "<group>";
+		};
+		61A9CA991F97FB4E00B6388D /* TabBar VCs */ = {
+			isa = PBXGroup;
+			children = (
+				6183AB9C1F339C8D00414E72 /* FirstViewController.swift */,
+				6183AB9E1F339C8D00414E72 /* SecondViewController.swift */,
+			);
+			path = "TabBar VCs";
+			sourceTree = "<group>";
+		};
+		61A9CA9A1F97FB8900B6388D /* DeleteAlerts */ = {
+			isa = PBXGroup;
+			children = (
+				614A470C1F4E071100DE38A8 /* CustomDeleteAlertViewController.swift */,
+				614A470D1F4E071100DE38A8 /* CustomDeleteAlertViewController.xib */,
+				61A9CA951F97FB3000B6388D /* CustomDeleteShowAlertViewController.swift */,
+				61A9CA961F97FB3000B6388D /* CustomDeleteShowAlertViewController.xib */,
+			);
+			path = DeleteAlerts;
+			sourceTree = "<group>";
+		};
+		61A9CA9B1F97FBE900B6388D /* RankAlert */ = {
+			isa = PBXGroup;
+			children = (
+				61EEE5431F914BE80021BC9D /* CustomRankAlertViewController.swift */,
+				61EEE5441F914BE80021BC9D /* CustomRankAlertViewController.xib */,
+			);
+			path = RankAlert;
+			sourceTree = "<group>";
+		};
+		61A9CA9C1F97FC1B00B6388D /* AddShow */ = {
+			isa = PBXGroup;
+			children = (
+				61982D4B1F47742700D191D7 /* CustomAlertViewController.swift */,
+				61982D4C1F47742700D191D7 /* CustomAlertViewController.xib */,
+			);
+			path = AddShow;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -162,6 +200,7 @@
 				614A470F1F4E071100DE38A8 /* CustomDeleteAlertViewController.xib in Resources */,
 				6183ABA71F339C8D00414E72 /* LaunchScreen.storyboard in Resources */,
 				6183ABA41F339C8D00414E72 /* Assets.xcassets in Resources */,
+				61A9CA981F97FB3000B6388D /* CustomDeleteShowAlertViewController.xib in Resources */,
 				6183ABA21F339C8D00414E72 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -182,6 +221,7 @@
 				61EEE5451F914BE80021BC9D /* CustomRankAlertViewController.swift in Sources */,
 				61982D4D1F47742700D191D7 /* CustomAlertViewController.swift in Sources */,
 				6155E5291F3B8136004E0DCB /* DetailsViewController.swift in Sources */,
+				61A9CA971F97FB3000B6388D /* CustomDeleteShowAlertViewController.swift in Sources */,
 				61918C161F8825BF00E66BE3 /* CustomTableViewCell2.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
