@@ -6,6 +6,11 @@
 //  Copyright © 2017 Louis Harris. All rights reserved.
 //
 
+//////////////////////////////////////////////////////////////////////////////////////////
+//                                  TO DO:                                              //
+//1. When editing from firstVC can't update coredata because rank is read as the same   //
+/////////////////////////////////////////////////////////////////////////////////////////
+
 import UIKit
 import CoreData
 
@@ -217,6 +222,7 @@ class EditShowViewController: UIViewController, UITextViewDelegate{
     }
     
     @IBAction func saveShow(_ sender: Any) {
+        //loop through all coredata objects if rank isn't nil, if the rank of the object is equal to ranktext set the flag to false we can't save because theyre the same
         var flag = true
         for show in self.allEditedShows {
             if show.rank != nil  {
@@ -227,17 +233,32 @@ class EditShowViewController: UIViewController, UITextViewDelegate{
                 }
             }
         }
+        
+        //if the flag is true save info to coredata and go to a tabbarVC
         if flag{
             updateShow()
             
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let secondVC = storyboard.instantiateViewController(withIdentifier: "secondViewController") as! SecondViewController
-            self.navigationController?.pushViewController(secondVC, animated: true)
+            //look for followed bool if followed bool is true go to firstVC if followed bool is false go to secondVC
+            if currentlySelectedShow.followed == true{
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let firstVC = storyboard.instantiateViewController(withIdentifier: "firstViewController") as! FirstViewController
+                self.navigationController?.pushViewController(firstVC, animated: true)
+            }else{
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let secondVC = storyboard.instantiateViewController(withIdentifier: "secondViewController") as! SecondViewController
+                self.navigationController?.pushViewController(secondVC, animated: true)
+            }
+            
         }else{
             // throw a error
             let customAlert = CustomRankAlertViewController()
             customAlert.modalPresentationStyle = .overCurrentContext
             customAlert.modalTransitionStyle = .crossDissolve
+            
+            customAlert.currentlySelectedShow = self.currentlySelectedShow
+            customAlert.newRankForShow = rankTxtField.text
+            customAlert.everyShow = allEditedShows
+            
             present(customAlert, animated: true)
         }
     }

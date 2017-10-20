@@ -8,10 +8,9 @@
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 //                                  TO DO                                                   //
-//1. Can't acess detailVC and EditVC unless show is selected from followingTableView        //
-//2. Delete a show button deletes a show                                                    //
-//3. UI for tableview                                                                       //
-//4. Detail button goes to detailsVC on selected show
+//1. UI for tableview                                                                       //
+//2. Detail button goes to detailsVC on selected show                                       //
+//3. Tableview should reflect changed rankings if user wants I.E change 1 to 2 or 2 to 1    //
 /////////////////////////////////////////////////////////////////////////////////////////////
 
 import UIKit
@@ -105,7 +104,7 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
             }
         }
         
-        //Handle nil rank, Takes nils at beinning of array and append them to the end of the array
+        //Handle nil rank, Takes nils at beinning of array and append them to the end of the array so nil rank appears at bottom of tableview
         var tempArray = [Show]()
         for nilRank in self.followedShows {
             if nilRank.rank == nil {
@@ -172,6 +171,23 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
             deleteButton.setTitleColor(.gray, for: .normal)
             
         }
+    }
+   
+    @IBAction func goToEditVC(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let editShowVC = storyboard.instantiateViewController(withIdentifier: "editShowViewController") as! EditShowViewController
+        
+        let indexPath = followedShowsTableView.indexPathForSelectedRow
+        guard let index = indexPath else{
+            return
+        }
+        
+        let currentShow = followedShows[index.row]
+        
+        editShowVC.currentlySelectedShow = currentShow
+        editShowVC.allEditedShows = followedShows
+        
+        self.navigationController?.pushViewController(editShowVC, animated: true)
     }
     
     @IBAction func showDetails(_ sender: Any) {

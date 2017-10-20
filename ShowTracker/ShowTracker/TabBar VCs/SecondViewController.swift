@@ -91,7 +91,6 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     @IBAction func goToEditVC(_ sender: Any) {
-        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let editShowVC = storyboard.instantiateViewController(withIdentifier: "editShowViewController") as! EditShowViewController
         

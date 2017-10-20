@@ -13,6 +13,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CustomRankAlertViewController" customModule="ShowTracker" customModuleProvider="target">
             <connections>
+                <outlet property="noButton" destination="zBz-pZ-iU4" id="T1h-JN-ICs"/>
                 <outlet property="okButton" destination="hTP-s8-3YU" id="6Qt-0j-8s7"/>
                 <outlet property="rankCustomAlertView" destination="syr-2X-BBJ" id="aop-Id-XbR"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -26,39 +27,53 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="syr-2X-BBJ">
                     <rect key="frame" x="31.5" y="250" width="312.5" height="167"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Oh No!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aBt-iI-WCu">
-                            <rect key="frame" x="8" y="8" width="296.5" height="30"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Oh No! Another Show has that Rank." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aBt-iI-WCu">
+                            <rect key="frame" x="8" y="8" width="296.5" height="48"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
                             <color key="textColor" red="1" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Another Show already has that Rank. Try again." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dZL-Cp-RIF">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Would you like to give this Rank to the currently seleted Show?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dZL-Cp-RIF">
                             <rect key="frame" x="8" y="66" width="296.5" height="36"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <color key="textColor" red="1" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hTP-s8-3YU">
-                            <rect key="frame" x="8" y="129" width="296.5" height="30"/>
-                            <state key="normal" title="OK">
+                            <rect key="frame" x="0.0" y="125.5" width="156.5" height="41.5"/>
+                            <state key="normal" title="Yes">
                                 <color key="titleColor" red="1" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <connections>
                                 <action selector="okPressed:" destination="-1" eventType="touchUpInside" id="nqc-nP-alx"/>
                             </connections>
                         </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zBz-pZ-iU4">
+                            <rect key="frame" x="156" y="125.5" width="156" height="41.5"/>
+                            <state key="normal" title="No">
+                                <color key="titleColor" red="1" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="noButtonPressed:" destination="-1" eventType="touchUpInside" id="etp-Gy-Rpe"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="aBt-iI-WCu" firstAttribute="leading" secondItem="4O6-GE-8y5" secondAttribute="leading" constant="8" id="0KR-MS-9ZO"/>
-                        <constraint firstItem="hTP-s8-3YU" firstAttribute="leading" secondItem="4O6-GE-8y5" secondAttribute="leading" constant="8" id="71g-ks-KOy"/>
+                        <constraint firstItem="hTP-s8-3YU" firstAttribute="leading" secondItem="4O6-GE-8y5" secondAttribute="leading" id="71g-ks-KOy"/>
+                        <constraint firstItem="zBz-pZ-iU4" firstAttribute="width" secondItem="syr-2X-BBJ" secondAttribute="width" multiplier="1/2" id="8PQ-Mm-1cf"/>
                         <constraint firstItem="4O6-GE-8y5" firstAttribute="trailing" secondItem="dZL-Cp-RIF" secondAttribute="trailing" constant="8" id="ISV-QO-bka"/>
-                        <constraint firstItem="4O6-GE-8y5" firstAttribute="trailing" secondItem="hTP-s8-3YU" secondAttribute="trailing" constant="8" id="If9-dp-qYS"/>
+                        <constraint firstItem="4O6-GE-8y5" firstAttribute="trailing" secondItem="zBz-pZ-iU4" secondAttribute="trailing" id="JTk-GW-MvS"/>
                         <constraint firstItem="dZL-Cp-RIF" firstAttribute="leading" secondItem="4O6-GE-8y5" secondAttribute="leading" constant="8" id="JuV-xG-gLh"/>
                         <constraint firstItem="4O6-GE-8y5" firstAttribute="trailing" secondItem="aBt-iI-WCu" secondAttribute="trailing" constant="8" id="Q9k-Ff-HOl"/>
+                        <constraint firstItem="4O6-GE-8y5" firstAttribute="bottom" secondItem="zBz-pZ-iU4" secondAttribute="bottom" id="QRc-hT-Q5P"/>
                         <constraint firstItem="aBt-iI-WCu" firstAttribute="top" secondItem="4O6-GE-8y5" secondAttribute="top" constant="8" id="aIl-dP-cHj"/>
-                        <constraint firstItem="4O6-GE-8y5" firstAttribute="bottom" secondItem="hTP-s8-3YU" secondAttribute="bottom" constant="8" id="f3z-yR-xMl"/>
+                        <constraint firstItem="hTP-s8-3YU" firstAttribute="width" secondItem="syr-2X-BBJ" secondAttribute="width" multiplier="1/2" id="aZm-q0-eJQ"/>
+                        <constraint firstItem="hTP-s8-3YU" firstAttribute="height" secondItem="syr-2X-BBJ" secondAttribute="height" multiplier="1/4" id="cju-0c-ui4"/>
+                        <constraint firstItem="4O6-GE-8y5" firstAttribute="bottom" secondItem="hTP-s8-3YU" secondAttribute="bottom" id="f3z-yR-xMl"/>
                         <constraint firstItem="dZL-Cp-RIF" firstAttribute="centerY" secondItem="syr-2X-BBJ" secondAttribute="centerY" id="hML-bj-MtZ"/>
+                        <constraint firstItem="zBz-pZ-iU4" firstAttribute="height" secondItem="syr-2X-BBJ" secondAttribute="height" multiplier="1/4" id="qXA-dT-czX"/>
                     </constraints>
                     <viewLayoutGuide key="safeArea" id="4O6-GE-8y5"/>
                 </view>
