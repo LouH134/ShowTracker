@@ -6,11 +6,6 @@
 //  Copyright © 2017 Louis Harris. All rights reserved.
 //
 
-/////////////////////////////////////////////////////////////////////////////
-//                              TO DO:                                     //
-//1.After pushing yes button and changing the rank, won't go to either VC  //
-////////////////////////////////////////////////////////////////////////////
-
 import UIKit
 import CoreData
 
@@ -22,6 +17,7 @@ class CustomRankAlertViewController: UIViewController {
     var everyShow:[Show] = []
     var newRankForShow:String?
     var currentlySelectedShow:Show!
+    var navController:UINavigationController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,11 +42,13 @@ class CustomRankAlertViewController: UIViewController {
         if currentlySelectedShow.followed == true{
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let firstVC = storyboard.instantiateViewController(withIdentifier: "firstViewController") as! FirstViewController
-            self.navigationController?.pushViewController(firstVC, animated: true)
+            navController?.pushViewController(firstVC, animated: true)
+            dismiss(animated: true, completion: nil)
         }else{
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let secondVC = storyboard.instantiateViewController(withIdentifier: "secondViewController") as! SecondViewController
-            self.navigationController?.pushViewController(secondVC, animated: true)
+            navController?.pushViewController(secondVC, animated: true)
+            dismiss(animated: true, completion: nil)
         }
     }
     

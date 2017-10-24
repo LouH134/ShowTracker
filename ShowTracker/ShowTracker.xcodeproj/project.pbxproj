@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		614A470E1F4E071100DE38A8 /* CustomDeleteAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614A470C1F4E071100DE38A8 /* CustomDeleteAlertViewController.swift */; };
 		614A470F1F4E071100DE38A8 /* CustomDeleteAlertViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 614A470D1F4E071100DE38A8 /* CustomDeleteAlertViewController.xib */; };
+		614DDF7E1F9E96AB0031C88E /* CustomTableViewCell1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614DDF7D1F9E96AB0031C88E /* CustomTableViewCell1.swift */; };
 		6155E5291F3B8136004E0DCB /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6155E5281F3B8136004E0DCB /* DetailsViewController.swift */; };
 		615B2E771F3D0132000A7DD3 /* ShowTrackerModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 615B2E751F3D0132000A7DD3 /* ShowTrackerModel.xcdatamodeld */; };
 		6183AB9B1F339C8D00414E72 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6183AB9A1F339C8D00414E72 /* AppDelegate.swift */; };
@@ -30,6 +31,7 @@
 /* Begin PBXFileReference section */
 		614A470C1F4E071100DE38A8 /* CustomDeleteAlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomDeleteAlertViewController.swift; sourceTree = "<group>"; };
 		614A470D1F4E071100DE38A8 /* CustomDeleteAlertViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomDeleteAlertViewController.xib; sourceTree = "<group>"; };
+		614DDF7D1F9E96AB0031C88E /* CustomTableViewCell1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell1.swift; sourceTree = "<group>"; };
 		6155E5281F3B8136004E0DCB /* DetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		615B2E761F3D0132000A7DD3 /* ShowTrackerModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ShowTrackerModel.xcdatamodel; sourceTree = "<group>"; };
 		6183AB971F339C8D00414E72 /* ShowTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShowTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -87,6 +89,7 @@
 				61A9CA9C1F97FC1B00B6388D /* AddShow */,
 				61917DBB1F38F41200E31F92 /* EditShowViewController.swift */,
 				6155E5281F3B8136004E0DCB /* DetailsViewController.swift */,
+				614DDF7D1F9E96AB0031C88E /* CustomTableViewCell1.swift */,
 				61918C141F8825BF00E66BE3 /* CustomTableViewCell2.swift */,
 				615B2E751F3D0132000A7DD3 /* ShowTrackerModel.xcdatamodeld */,
 				6183ABA01F339C8D00414E72 /* Main.storyboard */,
@@ -212,6 +215,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				614DDF7E1F9E96AB0031C88E /* CustomTableViewCell1.swift in Sources */,
 				6183AB9F1F339C8D00414E72 /* SecondViewController.swift in Sources */,
 				615B2E771F3D0132000A7DD3 /* ShowTrackerModel.xcdatamodeld in Sources */,
 				61917DBC1F38F41200E31F92 /* EditShowViewController.swift in Sources */,

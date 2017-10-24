@@ -6,6 +6,11 @@
 //  Copyright © 2017 Louis Harris. All rights reserved.
 //
 
+/////////////////////////////////////////////////////////////////////////////////////////////
+//                              TO DO                                                      //
+//1. When tableview is empty show image. When not empty hide image                         //
+/////////////////////////////////////////////////////////////////////////////////////////////
+
 import UIKit
 import CoreData
 
@@ -46,7 +51,6 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.possibleShowsTableView.dataSource = self
         possibleShowsTableView.backgroundColor = UIColor.black
         possibleShowsTableView.tableFooterView = UIView()
-        
         }
     
     func designForUI(){
@@ -87,6 +91,15 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
             
         }catch let error as NSError{
             print("Could not fetch! \(error), \(error.userInfo)")
+        }
+        
+        if possibleShows.count == 0{
+            self.navigationItem.rightBarButtonItem?.tintColor = .gray
+            self.navigationItem.rightBarButtonItem?.isEnabled = false
+            addShowButton.isEnabled = false
+            addShowButton.setTitleColor(.gray, for: .normal)
+            deleteShowButton.isEnabled = false
+            deleteShowButton.setTitleColor(.gray, for: .normal)
         }
     }
     

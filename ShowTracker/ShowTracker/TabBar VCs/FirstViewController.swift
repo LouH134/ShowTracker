@@ -8,9 +8,7 @@
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 //                                  TO DO                                                   //
-//1. UI for tableview                                                                       //
-//2. Detail button goes to detailsVC on selected show                                       //
-//3. Tableview should reflect changed rankings if user wants I.E change 1 to 2 or 2 to 1    //
+//1. When tableview is empty show image when not empty hide image                           //
 /////////////////////////////////////////////////////////////////////////////////////////////
 
 import UIKit
@@ -57,6 +55,8 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         self.followedShowsTableView.delegate = self
         self.followedShowsTableView.dataSource = self
+        followedShowsTableView.backgroundColor = UIColor.black
+        followedShowsTableView.tableFooterView = UIView()
         followedShowsTableView.reloadData()
     }
     
@@ -191,6 +191,19 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     @IBAction func showDetails(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let showDetailsVC = storyboard.instantiateViewController(withIdentifier: "detailsViewController") as! DetailsViewController
+        
+        let indexPath = followedShowsTableView.indexPathForSelectedRow
+        guard let index = indexPath else{
+            return
+        }
+        
+        let currentShow = followedShows[index.row]
+        
+        showDetailsVC.currentlySelectedShow = currentShow
+        
+        self.navigationController?.pushViewController(showDetailsVC, animated: true)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -202,11 +215,17 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = followedShowsTableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let cell = followedShowsTableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CustomTableViewCell1
         
         let followedShow = followedShows[indexPath.row]
         
-        cell.textLabel?.text = followedShow.value(forKey: "showName") as? String
+        cell.mainLabel.text = followedShow.value(forKey: "showName") as? String
+        cell.layer.borderWidth = 1.0
+        cell.layer.borderColor = UIColor.purple.cgColor
+        
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = UIColor.purple
+        cell.selectedBackgroundView = backgroundView
         
         return cell
     }

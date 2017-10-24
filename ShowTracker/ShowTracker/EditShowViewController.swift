@@ -6,11 +6,6 @@
 //  Copyright © 2017 Louis Harris. All rights reserved.
 //
 
-//////////////////////////////////////////////////////////////////////////////////////////
-//                                  TO DO:                                              //
-//1. When editing from firstVC can't update coredata because rank is read as the same   //
-/////////////////////////////////////////////////////////////////////////////////////////
-
 import UIKit
 import CoreData
 
@@ -31,6 +26,7 @@ class EditShowViewController: UIViewController, UITextViewDelegate{
     var keyboardHeight:CGRect!
     var summaryString:String?
     var editedSummaryString:String?
+    var placeholderString = "Enter Summary..."
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,7 +44,6 @@ class EditShowViewController: UIViewController, UITextViewDelegate{
         showAttributes()
         
         //simple actions
-        
         self.keyboardHeight = self.view.frame
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
@@ -71,6 +66,8 @@ class EditShowViewController: UIViewController, UITextViewDelegate{
         if currentlySelectedShow.summary != nil{
             summaryString = currentlySelectedShow.summary
             summaryTextView.text = summaryString
+        }else{
+            summaryTextView.text = placeholderString
         }
         
         if currentEpisodeTxtField.text == nil{
@@ -140,7 +137,6 @@ class EditShowViewController: UIViewController, UITextViewDelegate{
         
         summaryTextView.delegate = self
         
-        summaryTextView.text = "Enter Summary..."
         summaryTextView.textColor = UIColor.yellow
         summaryTextView.layer.borderWidth = 2.5
         summaryTextView.layer.borderColor = UIColor.purple.cgColor
@@ -172,18 +168,19 @@ class EditShowViewController: UIViewController, UITextViewDelegate{
     }
     //Functions for textView
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if summaryString != nil{
+        if summaryString != nil && summaryString != placeholderString{
             textView.text = summaryString
         }else{
             if textView.textColor == UIColor.yellow {
                 textView.text = nil
+                summaryString = nil
             }
         }
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty && summaryString == nil {
-            textView.text = "Enter Summary..."
+            textView.text = placeholderString
         }else{
             editedSummaryString = textView.text
             summaryString = editedSummaryString
@@ -222,44 +219,45 @@ class EditShowViewController: UIViewController, UITextViewDelegate{
     }
     
     @IBAction func saveShow(_ sender: Any) {
-        //loop through all coredata objects if rank isn't nil, if the rank of the object is equal to ranktext set the flag to false we can't save because theyre the same
-        var flag = true
-        for show in self.allEditedShows {
-            if show.rank != nil  {
-                if show.rank == rankTxtField.text {
-                    // we can't save
-                    flag = false
-                    break
+                //loop through all coredata objects if rank isn't nil, if the rank of the object is equal to ranktext and the current show is not ranktext throw alert otherwise save
+                var flag = true
+                for show in self.allEditedShows {
+                    if show.rank != nil  {
+                        if show.rank == rankTxtField.text && currentlySelectedShow.rank != rankTxtField.text{
+                            // we can't save
+                            flag = false
+                            break
+                        }
+                    }
                 }
-            }
-        }
-        
-        //if the flag is true save info to coredata and go to a tabbarVC
-        if flag{
-            updateShow()
-            
-            //look for followed bool if followed bool is true go to firstVC if followed bool is false go to secondVC
-            if currentlySelectedShow.followed == true{
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let firstVC = storyboard.instantiateViewController(withIdentifier: "firstViewController") as! FirstViewController
-                self.navigationController?.pushViewController(firstVC, animated: true)
-            }else{
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let secondVC = storyboard.instantiateViewController(withIdentifier: "secondViewController") as! SecondViewController
-                self.navigationController?.pushViewController(secondVC, animated: true)
-            }
-            
-        }else{
-            // throw a error
-            let customAlert = CustomRankAlertViewController()
-            customAlert.modalPresentationStyle = .overCurrentContext
-            customAlert.modalTransitionStyle = .crossDissolve
-            
-            customAlert.currentlySelectedShow = self.currentlySelectedShow
-            customAlert.newRankForShow = rankTxtField.text
-            customAlert.everyShow = allEditedShows
-            
-            present(customAlert, animated: true)
+                
+                //if the flag is true save info to coredata and go to a tabbarVC
+                if flag{
+                    updateShow()
+                    
+                    //look for followed bool if followed bool is true go to firstVC if followed bool is false go to secondVC
+                    if currentlySelectedShow.followed == true{
+                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                        let firstVC = storyboard.instantiateViewController(withIdentifier: "firstViewController") as! FirstViewController
+                        self.navigationController?.pushViewController(firstVC, animated: true)
+                    }else{
+                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                        let secondVC = storyboard.instantiateViewController(withIdentifier: "secondViewController") as! SecondViewController
+                        self.navigationController?.pushViewController(secondVC, animated: true)
+                    }
+                    
+                }else{
+                    // throw a error
+                    let customAlert = CustomRankAlertViewController()
+                    customAlert.modalPresentationStyle = .overCurrentContext
+                    customAlert.modalTransitionStyle = .crossDissolve
+                    
+                    customAlert.currentlySelectedShow = self.currentlySelectedShow
+                    customAlert.newRankForShow = rankTxtField.text
+                    customAlert.everyShow = allEditedShows
+                    customAlert.navController = self.navigationController
+                    
+                    present(customAlert, animated: true)
         }
     }
     
