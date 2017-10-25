@@ -9,19 +9,19 @@
 //////////////////////////////////////////////////////////////////////////////////////
 //                              TO DO                                               //
 //1. Going from detailsvc to second vc to first vc brings you back to deatilsvc     //
-//2. Make summary label scrollable by adding a scroll view to put the label in     //
 /////////////////////////////////////////////////////////////////////////////////////
 
 import UIKit
 
 class DetailsViewController: UIViewController {
-    @IBOutlet weak var summaryLabel: UILabel!
     @IBOutlet weak var rankingLabel: UILabel!
     @IBOutlet weak var currentSeasonLabel: UILabel!
     @IBOutlet weak var totalSeasonsLabel: UILabel!
     @IBOutlet weak var airingLabel: UILabel!
     @IBOutlet weak var currentEpisodeLabel: UILabel!
     @IBOutlet weak var totalEpisodesLabel: UILabel!
+    @IBOutlet weak var summaryTextView: UITextView!
+    
     var currentlySelectedShow:Show!
     
     override func viewDidLoad() {
@@ -36,12 +36,14 @@ class DetailsViewController: UIViewController {
         displayShowDetails()
         
         if currentlySelectedShow.summary == "Enter Summary..."{
-            summaryLabel.isHidden = true
+            summaryTextView.isHidden = true
         }
+        
+        
     }
     
     func displayShowDetails(){
-        summaryLabel.text = currentlySelectedShow.summary
+        summaryTextView.text = currentlySelectedShow.summary
         rankingLabel.text = currentlySelectedShow.rank
         
         currentEpisodeLabel.text = currentlySelectedShow.currentEpisode
