@@ -36,21 +36,17 @@ class CustomAlertViewController: UIViewController {
         cancelButton.layer.borderWidth = 2.5
         cancelButton.layer.borderColor = UIColor.purple.cgColor
         cancelButton.contentEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
-        
-        
-        
     }
     
     @IBAction func save(_ sender: Any) {
         
         self.secondVC.save(name: inputTextField.text!)
         self.dismiss(animated: true, completion: nil)
-        
     }
     
     @IBAction func cancel(_ sender: Any) {
         self.presentingViewController?.tabBarController?.tabBar.isUserInteractionEnabled = true
+        self.secondVC.getSavedObjectsAndShow()
         self.dismiss(animated: true, completion: nil)
-        
     }
 }

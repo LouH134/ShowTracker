@@ -6,11 +6,6 @@
 //  Copyright © 2017 Louis Harris. All rights reserved.
 //
 
-/////////////////////////////////////////////////////////////////////////////////////////////
-//                              TO DO                                                      //
-//1. When tableview is empty show image. When not empty hide image                         //
-/////////////////////////////////////////////////////////////////////////////////////////////
-
 import UIKit
 import CoreData
 
@@ -21,6 +16,7 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var possibleShowsTableView: UITableView!
     @IBOutlet weak var addPossibleShowButton: UIButton!
     @IBOutlet weak var editBarButton: UIBarButtonItem!
+    @IBOutlet weak var possibleShowsImage: UIImageView!
     var possibleShows: [Show] = []
     var addShowString: String?
     
@@ -51,7 +47,7 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.possibleShowsTableView.dataSource = self
         possibleShowsTableView.backgroundColor = UIColor.black
         possibleShowsTableView.tableFooterView = UIView()
-        }
+    }
     
     func designForUI(){
         addShowButton.layer.cornerRadius = 5
@@ -70,12 +66,14 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
         addPossibleShowButton.contentEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
     }
     
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         possibleShowsTableView.reloadData()
-        
+        getSavedObjectsAndShow()
+    }
+    
+    func getSavedObjectsAndShow()  {
         //look at core data for saved shows only shows that aren't followed
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else{
             return
@@ -100,6 +98,19 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
             addShowButton.setTitleColor(.gray, for: .normal)
             deleteShowButton.isEnabled = false
             deleteShowButton.setTitleColor(.gray, for: .normal)
+            
+            possibleShowsImage.isHidden = false
+            possibleShowsTableView.isHidden = true
+        }else{
+            self.navigationItem.rightBarButtonItem?.tintColor = .yellow
+            self.navigationItem.rightBarButtonItem?.isEnabled = true
+            addShowButton.isEnabled = true
+            addShowButton.setTitleColor(.yellow, for: .normal)
+            deleteShowButton.isEnabled = true
+            deleteShowButton.setTitleColor(.yellow, for: .normal)
+            
+            possibleShowsImage.isHidden = true
+            possibleShowsTableView.isHidden = false
         }
     }
     
@@ -167,6 +178,9 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
         customAlert.modalPresentationStyle = .overCurrentContext
         customAlert.modalTransitionStyle = .crossDissolve
         present(customAlert, animated: true)
+        
+        possibleShowsImage.isHidden = true
+        possibleShowsTableView.isHidden = false
     }
     
     func save(name:String)
@@ -236,6 +250,8 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
             deleteShowButton.isEnabled = false
             deleteShowButton.setTitleColor(.gray, for: .normal)
             
+            possibleShowsImage.isHidden = false
+            possibleShowsTableView.isHidden = true
         }
     }
     
@@ -286,7 +302,6 @@ class SecondViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        
         if editingStyle == .delete {
             
             deletePossibleShow(atIndexPath: indexPath)

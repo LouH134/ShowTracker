@@ -6,17 +6,12 @@
 //  Copyright © 2017 Louis Harris. All rights reserved.
 //
 
-//////////////////////////////////////////////////////////////////////////////////////////////
-//                                  TO DO                                                   //
-//1. When tableview is empty show image when not empty hide image                           //
-/////////////////////////////////////////////////////////////////////////////////////////////
-
 import UIKit
 import CoreData
 
-class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
 
-
+    @IBOutlet weak var image: UIImageView!
     @IBOutlet weak var detailButton: UIButton!
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var followedShowsTableView: UITableView!
@@ -58,6 +53,7 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         followedShowsTableView.backgroundColor = UIColor.black
         followedShowsTableView.tableFooterView = UIView()
         followedShowsTableView.reloadData()
+        
     }
     
     func designForUI(){
@@ -75,6 +71,10 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        getFollowedObjectsAndShow()
+    }
+    
+    func getFollowedObjectsAndShow(){
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else{
             return
         }
@@ -92,6 +92,14 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
             
         }catch let error as NSError{
             print("Could not fetch! \(error), \(error.userInfo)")
+        }
+        
+        if followedShows.count != 0{
+            image.isHidden =  true
+            followedShowsTableView.isHidden = false
+        }else{
+            image.isHidden = false
+            followedShowsTableView.isHidden = true
         }
     }
     
@@ -170,6 +178,8 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
             deleteButton.isEnabled = false
             deleteButton.setTitleColor(.gray, for: .normal)
             
+            image.isHidden = false
+            followedShowsTableView.isHidden = true
         }
     }
    
@@ -282,5 +292,6 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
             deleteButton.isEnabled = false
             deleteButton.tintColor = .gray
         }
-    }}
+    }
+}
 

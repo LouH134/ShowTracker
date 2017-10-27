@@ -6,11 +6,6 @@
 //  Copyright © 2017 Louis Harris. All rights reserved.
 //
 
-//////////////////////////////////////////////////////////////////////////////////////
-//                              TO DO                                               //
-//1. Going from detailsvc to second vc to first vc brings you back to deatilsvc     //
-/////////////////////////////////////////////////////////////////////////////////////
-
 import UIKit
 
 class DetailsViewController: UIViewController {
@@ -39,7 +34,14 @@ class DetailsViewController: UIViewController {
             summaryTextView.isHidden = true
         }
         
+       let tempArray = [currentEpisodeLabel,currentSeasonLabel,rankingLabel]
         
+        for mainLabels in tempArray{
+            if mainLabels?.text == nil{
+                airingLabel.isHidden = true
+                break
+            }
+        }
     }
     
     func displayShowDetails(){

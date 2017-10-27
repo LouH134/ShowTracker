@@ -1,7 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11106"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -16,12 +21,69 @@
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SplashImage" translatesAutoresizingMaskIntoConstraints="NO" id="MCU-km-OvJ">
+                                <rect key="frame" x="0.0" y="222" width="375" height="222"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Ranking" translatesAutoresizingMaskIntoConstraints="NO" id="XO5-G1-EdF">
+                                <rect key="frame" x="0.0" y="0.0" width="125" height="111"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Ranking" translatesAutoresizingMaskIntoConstraints="NO" id="QAc-Bc-iEI">
+                                <rect key="frame" x="250" y="0.0" width="125" height="111"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Ranking" translatesAutoresizingMaskIntoConstraints="NO" id="PeR-mf-bxB">
+                                <rect key="frame" x="0.0" y="556" width="125" height="111"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Ranking" translatesAutoresizingMaskIntoConstraints="NO" id="OAe-Je-Nlw">
+                                <rect key="frame" x="125" y="452" width="125" height="111"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Ranking" translatesAutoresizingMaskIntoConstraints="NO" id="9uH-u8-Ibi">
+                                <rect key="frame" x="250" y="556" width="125" height="111"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Ranking" translatesAutoresizingMaskIntoConstraints="NO" id="vP7-Ml-nWx">
+                                <rect key="frame" x="124.5" y="103" width="125" height="111"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="MCU-km-OvJ" firstAttribute="top" secondItem="vP7-Ml-nWx" secondAttribute="bottom" constant="8" id="7bH-jx-ReT"/>
+                            <constraint firstItem="OAe-Je-Nlw" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" multiplier="1/3" id="Dqi-hq-RsC"/>
+                            <constraint firstItem="QAc-Bc-iEI" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" multiplier="1/3" id="E4y-cO-kmU"/>
+                            <constraint firstItem="XO5-G1-EdF" firstAttribute="height" secondItem="Ze5-6b-2t3" secondAttribute="height" multiplier="1/6" id="Ecg-5s-IO5"/>
+                            <constraint firstItem="MCU-km-OvJ" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" id="LjX-RS-cFG"/>
+                            <constraint firstItem="MCU-km-OvJ" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="NnD-TU-8eT"/>
+                            <constraint firstItem="vP7-Ml-nWx" firstAttribute="height" secondItem="Ze5-6b-2t3" secondAttribute="height" multiplier="1/6" id="ODC-f9-7IN"/>
+                            <constraint firstItem="vP7-Ml-nWx" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="SQS-Dn-Dwy"/>
+                            <constraint firstItem="PeR-mf-bxB" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" multiplier="1/3" id="SV0-2h-Iuo"/>
+                            <constraint firstItem="OAe-Je-Nlw" firstAttribute="height" secondItem="Ze5-6b-2t3" secondAttribute="height" multiplier="1/6" id="ZML-YE-xGc"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="PeR-mf-bxB" secondAttribute="bottom" id="cqd-sw-jqK"/>
+                            <constraint firstItem="vP7-Ml-nWx" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" multiplier="1/3" id="i6s-1t-RaH"/>
+                            <constraint firstItem="9uH-u8-Ibi" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" multiplier="1/3" id="igt-0P-vBw"/>
+                            <constraint firstItem="9uH-u8-Ibi" firstAttribute="height" secondItem="Ze5-6b-2t3" secondAttribute="height" multiplier="1/6" id="kXg-OS-ds4"/>
+                            <constraint firstAttribute="trailing" secondItem="9uH-u8-Ibi" secondAttribute="trailing" id="koH-xT-B4W"/>
+                            <constraint firstItem="XO5-G1-EdF" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="lJ4-9I-zJC"/>
+                            <constraint firstItem="OAe-Je-Nlw" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="lRQ-BN-ye6"/>
+                            <constraint firstItem="MCU-km-OvJ" firstAttribute="height" secondItem="Ze5-6b-2t3" secondAttribute="height" multiplier="1/3" id="lqW-Df-Hm1"/>
+                            <constraint firstItem="MCU-km-OvJ" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="mZT-oh-YfU"/>
+                            <constraint firstItem="OAe-Je-Nlw" firstAttribute="top" secondItem="MCU-km-OvJ" secondAttribute="bottom" constant="8" id="ooy-re-9TT"/>
+                            <constraint firstItem="XO5-G1-EdF" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" multiplier="1/3" id="pyr-Aj-gay"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="9uH-u8-Ibi" secondAttribute="bottom" id="qhz-WT-Y9V"/>
+                            <constraint firstAttribute="trailing" secondItem="QAc-Bc-iEI" secondAttribute="trailing" id="qkC-Lp-BRg"/>
+                            <constraint firstItem="XO5-G1-EdF" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="rrO-vH-zFv"/>
+                            <constraint firstItem="PeR-mf-bxB" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="xT5-Lk-R3S"/>
+                            <constraint firstItem="PeR-mf-bxB" firstAttribute="height" secondItem="Ze5-6b-2t3" secondAttribute="height" multiplier="1/6" id="xnk-jj-hfl"/>
+                            <constraint firstItem="QAc-Bc-iEI" firstAttribute="height" secondItem="Ze5-6b-2t3" secondAttribute="height" multiplier="1/6" id="y7O-3M-bB5"/>
+                            <constraint firstItem="QAc-Bc-iEI" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="zEG-Jx-YTs"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53" y="375"/>
+            <point key="canvasLocation" x="52" y="374.66266866566718"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Ranking" width="512" height="512"/>
+        <image name="SplashImage" width="960" height="629"/>
+    </resources>
 </document>
